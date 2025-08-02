@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link href="ratingsCss.css" rel="stylesheet" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <title>Phrenzye's Ratings</title>
+  </head>
+  <body>
+  <div class="tabs-container">
+    <div class="tab active" data-tab="games">ИГРЫ</div>
+    <div class="tab" data-tab="movies">ФИЛЬМЫ</div>
+    <div class="tab" data-tab="series">СЕРИАЛЫ</div>
+    <div class="tab-indicator"></div>
+  </div>
+
+  <div id="games" id="mainBlock" class="content active">
+    <iframe src="ratingsGames/iframe.html" id="mainFrame"></iframe>
+  </div>
+
+  <div id="movies" id="mainBlock" class="content">
+    <iframe src="ratingsFilms/iframe.html" id="mainFrame"></iframe>
+  </div>
+
+  <div id="series" id="mainBlock" class="content">
+    <iframe src="ratingsSeries/iframe.html" id="mainFrame"></iframe>
+  </div>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const tabs = document.querySelectorAll('.tab');
+    const tabIndicator = document.querySelector('.tab-indicator');
+    const tabsContainer = document.querySelector('.tabs-container');
+    
+    // Ждём полной загрузки страницы и шрифтов
+    function initIndicator() {
+      const activeTab = document.querySelector('.tab.active');
+      if (activeTab) {
+        // Добавляем небольшую задержку для гарантии
+        setTimeout(() => {
+          tabIndicator.style.width = `${activeTab.offsetWidth}px`;
+          tabIndicator.style.left = `${activeTab.offsetLeft}px`;
+          tabIndicator.style.opacity = '1'; // Делаем видимым после позиционирования
+        }, 50);
+      }
+    }
+    
+    // Инициализация после полной загрузки
+    if (document.readyState === 'complete') {
+      initIndicator();
+    } else {
+      window.addEventListener('load', initIndicator);
+    }
+    
+    // Остальной код обработчиков...
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        
+        tabIndicator.style.width = `${this.offsetWidth}px`;
+        tabIndicator.style.left = `${this.offsetLeft}px`;
+        
+        document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+        const tabId = this.getAttribute('data-tab');
+        const content = document.getElementById(tabId);
+        if (content) content.classList.add('active');
+      });
+    });
+    
+    window.addEventListener('resize', initIndicator);
+  });
+</script>
+</body>
+</html>
