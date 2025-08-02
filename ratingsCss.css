@@ -227,3 +227,119 @@ iframe {
 .content.active {
   display: block;
 }
+
+/* Добавьте эти медиа-запросы в конец файла */
+
+@media (max-width: 768px) {
+  /* Общие стили для мобильных устройств */
+  body {
+    overflow-x: hidden;
+  }
+  
+  /* Адаптация табов */
+  .tabs-container {
+    margin-top: 10px;
+    justify-content: space-around;
+  }
+  
+  .tab {
+    font-size: 16px;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+  
+  /* Адаптация основного контента */
+  #mainFrame {
+    padding-left: 0;
+    width: 100%;
+    position: relative;
+    margin-top: 20px;
+    height: 800px;
+  }
+  
+  #mainBlock {
+    margin: 5px;
+    margin-bottom: 30px;
+  }
+  
+  /* Адаптация карточек */
+  #card {
+    margin: 10px auto;
+    max-width: 90%;
+    height: 420px;
+    padding-bottom: 20px;
+  }
+  
+  #movie {
+    margin: 10px auto;
+    max-width: 70%;
+    height: 640px;
+    padding-bottom: 20px;
+    overflow: hidden;
+  }
+  
+  #childframe {
+    width: 100%;
+    height: 480px;
+    margin: 0 auto;
+  }
+
+  #childframeMovie {
+    width: 100%;
+    height: 680px;
+    margin: 0 auto;
+  }
+
+  #childframe:hover {
+  transform: scale(1);
+  position: relative;
+}
+
+	#childframeMovie:hover {
+	  transform: scale(1);
+	  position: relative;
+	}
+  
+  img {
+    max-width: 100%;
+  }
+  
+  p {
+    max-height: 180px;
+    overflow: scroll;
+    margin-bottom: 15px;
+  }
+  
+  /* Уменьшаем отступы для заголовков */
+  h1 {
+    font-size: 24px;
+  }
+  
+  h2 {
+    font-size: 20px;
+  }
+  
+  h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Дополнительные стили для очень маленьких экранов */
+  .tab {
+    font-size: 14px;
+    margin-right: 5px;
+    margin-left: 5px;
+    padding: 5px 8px;
+  }
+  
+  .tab-indicator {
+    top: 25px;
+  }
+  
+  #mainBlock {
+    margin: 2px;
+    margin-bottom: 20px;
+  }
+}
