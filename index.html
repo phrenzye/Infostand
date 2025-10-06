@@ -36,91 +36,108 @@
   </div>
 
   <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const tabs = document.querySelectorAll('.tab');
-    const tabIndicator = document.querySelector('.tab-indicator');
-    const tabsContainer = document.querySelector('.tabs-container');
-    
-    // Переменные для отслеживания двойного нажатия
-    let lastKeyPressTime = 0;
-    let keyPressCount = 0;
-    
-    // Функция для обработки двойного нажатия
-    function handleDoubleA(event) {
-      // Проверяем, что нажата английская A (код 65)
-      if (event.keyCode === 65 || event.key === 'a' || event.key === 'A') {
-        const currentTime = new Date().getTime();
-        
-        // Если прошло меньше 500мс с последнего нажатия
-        if (currentTime - lastKeyPressTime < 500) {
-          keyPressCount++;
-          
-          // Если это второе нажатие (двойное)
-          if (keyPressCount === 1) {
-            toggleAnimeTab();
-          }
-        } else {
-          keyPressCount = 0;
-        }
-        
-        lastKeyPressTime = currentTime;
-      }
-    }
-    
-    // Функция для показа/скрытия таба аниме
-    function toggleAnimeTab() {
-      const animeTab = document.querySelector('.tab[data-tab="anime"]');
-      animeTab.classList.toggle('hidden');
+document.addEventListener('DOMContentLoaded', function() {
+  const tabs = document.querySelectorAll('.tab');
+  const tabIndicator = document.querySelector('.tab-indicator');
+  const tabsContainer = document.querySelector('.tabs-container');
+  
+  // Переменные для отслеживания двойного нажатия
+  let lastKeyPressTime = 0;
+  let keyPressCount = 0;
+  
+  // Функция для обработки двойного нажатия
+  function handleDoubleA(event) {
+    // Проверяем, что нажата английская A (код 65)
+    if (event.keyCode === 65 || event.key === 'a' || event.key === 'A') {
+      const currentTime = new Date().getTime();
       
-      // Перепозиционируем индикатор
+      // Если прошло меньше 500мс с последнего нажатия
+      if (currentTime - lastKeyPressTime < 500) {
+        keyPressCount++;
+        
+        // Если это второе нажатие (двойное)
+        if (keyPressCount === 1) {
+          toggleAnimeTab();
+        }
+      } else {
+        keyPressCount = 0;
+      }
+      
+      lastKeyPressTime = currentTime;
+    }
+  }
+  
+  // Функция для показа/скрытия таба аниме
+  function toggleAnimeTab() {
+    const animeTab = document.querySelector('.tab[data-tab="anime"]');
+    const isHiding = !animeTab.classList.contains('hidden');
+    
+    animeTab.classList.toggle('hidden');
+    
+    // Если мы скрываем таб "аниме" и он был активен
+    if (isHiding && animeTab.classList.contains('active')) {
+      // Переключаемся на таб "сериалы"
+      switchToTab('series');
+    } else {
+      // Обновляем позицию индикатора
       const activeTab = document.querySelector('.tab.active');
       if (activeTab) {
         tabIndicator.style.width = `${activeTab.offsetWidth}px`;
         tabIndicator.style.left = `${activeTab.offsetLeft}px`;
       }
     }
+  }
+  
+  // Функция для переключения на конкретный таб
+  function switchToTab(tabName) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
     
-    // Добавляем обработчик события нажатия клавиш
-    document.addEventListener('keydown', handleDoubleA);
+    const targetTab = document.querySelector(`.tab[data-tab="${tabName}"]`);
+    const targetContent = document.getElementById(tabName);
     
-    // Ждём полной загрузки страницы и шрифтов
-    function initIndicator() {
-      const activeTab = document.querySelector('.tab.active');
-      if (activeTab) {
-        // Добавляем небольшую задержку для гарантии
-        setTimeout(() => {
-          tabIndicator.style.width = `${activeTab.offsetWidth}px`;
-          tabIndicator.style.left = `${activeTab.offsetLeft}px`;
-          tabIndicator.style.opacity = '1'; // Делаем видимым после позиционирования
-        }, 50);
-      }
+    if (targetTab && targetContent) {
+      targetTab.classList.add('active');
+      targetContent.classList.add('active');
+      
+      tabIndicator.style.width = `${targetTab.offsetWidth}px`;
+      tabIndicator.style.left = `${targetTab.offsetLeft}px`;
     }
-    
-    // Инициализация после полной загрузки
-    if (document.readyState === 'complete') {
-      initIndicator();
-    } else {
-      window.addEventListener('load', initIndicator);
+  }
+  
+  // Добавляем обработчик события нажатия клавиш
+  document.addEventListener('keydown', handleDoubleA);
+  
+  // Ждём полной загрузки страницы и шрифтов
+  function initIndicator() {
+    const activeTab = document.querySelector('.tab.active');
+    if (activeTab) {
+      // Добавляем небольшую задержку для гарантии
+      setTimeout(() => {
+        tabIndicator.style.width = `${activeTab.offsetWidth}px`;
+        tabIndicator.style.left = `${activeTab.offsetLeft}px`;
+        tabIndicator.style.opacity = '1'; // Делаем видимым после позиционирования
+      }, 50);
     }
-    
-    // Остальной код обработчиков...
-    tabs.forEach(tab => {
-      tab.addEventListener('click', function() {
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        this.classList.add('active');
-        
-        tabIndicator.style.width = `${this.offsetWidth}px`;
-        tabIndicator.style.left = `${this.offsetLeft}px`;
-        
-        document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
-        const tabId = this.getAttribute('data-tab');
-        const content = document.getElementById(tabId);
-        if (content) content.classList.add('active');
-      });
+  }
+  
+  // Инициализация после полной загрузки
+  if (document.readyState === 'complete') {
+    initIndicator();
+  } else {
+    window.addEventListener('load', initIndicator);
+  }
+  
+  // Обработчики кликов по табам
+  tabs.forEach(tab => {
+    tab.addEventListener('click', function() {
+      const tabId = this.getAttribute('data-tab');
+      switchToTab(tabId);
     });
-    
-    window.addEventListener('resize', initIndicator);
   });
+  
+  window.addEventListener('resize', initIndicator);
+});
 </script>
 </body>
 </html>
