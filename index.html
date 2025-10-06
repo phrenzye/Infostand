@@ -135,7 +135,45 @@ document.addEventListener('DOMContentLoaded', function() {
       switchToTab(tabId);
     });
   });
-  
+
+  // Функция для обработки тройного нажатия на таб "Сериалы" в мобильной версии
+function initMobileTripleTap() {
+  const seriesTab = document.querySelector('.tab[data-tab="series"]');
+  let tapCount = 0;
+  let lastTapTime = 0;
+  const tapDelay = 300; // время между нажатиями в мс
+
+  seriesTab.addEventListener('click', function(event) {
+    const currentTime = new Date().getTime();
+    
+    // Проверяем, является ли это мобильным устройством
+    const isMobile = window.innerWidth <= 768 || 
+                    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (!isMobile) return; // Работает только на мобильных
+    
+    if (currentTime - lastTapTime < tapDelay) {
+      tapCount++;
+    } else {
+      tapCount = 1;
+    }
+    
+    lastTapTime = currentTime;
+    
+    if (tapCount === 3) {
+      tapCount = 0; // Сбрасываем счетчик
+      event.preventDefault(); // Предотвращаем обычное переключение таба
+      toggleAnimeTab();
+      
+      // Показываем визуальную обратную связь
+      seriesTab.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+      setTimeout(() => {
+        seriesTab.style.backgroundColor = '';
+      }, 200);
+    }
+  });
+}
+  initMobileTripleTap();
   window.addEventListener('resize', initIndicator);
 });
 </script>
