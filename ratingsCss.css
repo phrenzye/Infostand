@@ -344,3 +344,31 @@ iframe {
 		margin-bottom: 20px;
 	}
 }
+
+/* Добавьте в конец файла */
+
+.tab.hidden {
+  display: none;
+}
+
+/* Обновим селекторы для iframe */
+#mainFrame {
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  padding-left: 70px;
+  margin-top: 0px;
+  height: 100%;
+  width: 90%; 
+}
+
+/* Обновим медиа-запросы для .mainFrame */
+@media (max-width: 768px) {
+  #mainFrame {
+    padding-left: 0;
+    width: 100%;
+    position: relative;
+    margin-top: 20px;
+    height: 800px;
+  }
+}

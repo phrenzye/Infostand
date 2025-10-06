@@ -15,6 +15,7 @@
     <div class="tab active" data-tab="games">ИГРЫ</div>
     <div class="tab" data-tab="movies">ФИЛЬМЫ</div>
     <div class="tab" data-tab="series">СЕРИАЛЫ</div>
+    <div class="tab hidden" data-tab="anime">АНИМЕ</div>
     <div class="tab-indicator"></div>
   </div>
 
@@ -30,11 +31,57 @@
     <iframe src="ratingsSeries/iframe.html" loading="lazy" id="mainFrame"></iframe>
   </div>
 
+  <div id="anime" id="mainBlock" class="content">
+    <iframe src="ratingsAnime/iframe.html" loading="lazy" id="mainFrame"></iframe>
+  </div>
+
   <script>
   document.addEventListener('DOMContentLoaded', function() {
     const tabs = document.querySelectorAll('.tab');
     const tabIndicator = document.querySelector('.tab-indicator');
     const tabsContainer = document.querySelector('.tabs-container');
+    
+    // Переменные для отслеживания двойного нажатия
+    let lastKeyPressTime = 0;
+    let keyPressCount = 0;
+    
+    // Функция для обработки двойного нажатия
+    function handleDoubleA(event) {
+      // Проверяем, что нажата английская A (код 65)
+      if (event.keyCode === 65 || event.key === 'a' || event.key === 'A') {
+        const currentTime = new Date().getTime();
+        
+        // Если прошло меньше 500мс с последнего нажатия
+        if (currentTime - lastKeyPressTime < 500) {
+          keyPressCount++;
+          
+          // Если это второе нажатие (двойное)
+          if (keyPressCount === 1) {
+            toggleAnimeTab();
+          }
+        } else {
+          keyPressCount = 0;
+        }
+        
+        lastKeyPressTime = currentTime;
+      }
+    }
+    
+    // Функция для показа/скрытия таба аниме
+    function toggleAnimeTab() {
+      const animeTab = document.querySelector('.tab[data-tab="anime"]');
+      animeTab.classList.toggle('hidden');
+      
+      // Перепозиционируем индикатор
+      const activeTab = document.querySelector('.tab.active');
+      if (activeTab) {
+        tabIndicator.style.width = `${activeTab.offsetWidth}px`;
+        tabIndicator.style.left = `${activeTab.offsetLeft}px`;
+      }
+    }
+    
+    // Добавляем обработчик события нажатия клавиш
+    document.addEventListener('keydown', handleDoubleA);
     
     // Ждём полной загрузки страницы и шрифтов
     function initIndicator() {
@@ -75,23 +122,5 @@
     window.addEventListener('resize', initIndicator);
   });
 </script>
-
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript">
-    (function(m,e,t,r,i,k,a){
-        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-        m[i].l=1*new Date();
-        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=103860945', 'ym');
-
-    ym(103860945, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/103860945" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
-
-
-
 </body>
-
 </html>
