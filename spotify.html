@@ -33,14 +33,14 @@
                     <img src="favicon.ico" alt="Вернуться" class="return-icon">
                 </a>
             </div>
-        </header>
 
-        <div class="controls">
-            <input type="text" id="search-input" placeholder="Поиск по названию или исполнителю...">
-            <button id="sort-alphabet">А-Я</button>
-            <button id="sort-recent">Сначала новые</button>
-            <button id="sort-popular">По популярности</button>
-        </div>
+            <div class="controls">
+                <input type="text" id="search-input" placeholder="Поиск по названию или исполнителю...">
+                <button id="sort-alphabet">А-Я</button>
+                <button id="sort-recent">Сначала новые</button>
+                <button id="sort-popular">По популярности</button>
+            </div>
+        </header>
         
         <main>
             <div class="tracks-list" id="tracks-container">
@@ -95,7 +95,8 @@
                     explicit: values[7] === 'true',
                     releaseDate: values[4] || 'Неизвестная дата',
                     duration: parseInt(values[5]) || 0,
-                    genres: values[10] || ''
+                    genres: values[10] || '',
+                    url: values[0] || ''
                 };
                 
                 tracks.push(track);
@@ -136,7 +137,7 @@
                 trackItem.className = 'track-item';
                 
                 trackItem.innerHTML = `
-                    <div class="track-info">
+                    <div onclick="window.location='${track.url}';" class="track-info">
                         <div class="track-name" title="${track.name}">${track.name}</div>
                         <div class="artist-name" title="${track.artist}">${track.artist}</div>
                         <div class="album-name" title="${track.album}">${track.album}</div>
@@ -247,4 +248,5 @@
         });
     </script>
 </body>
+
 </html>
