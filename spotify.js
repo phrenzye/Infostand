@@ -94,7 +94,7 @@ function parseCSV(csvText) {
         // Создаем объект трека
         const track = {
             name: values[1] || 'Неизвестный трек',
-            artist: values[3] || 'Неизвестный исполнитель',
+            artist: (values[3] || 'Неизвестный исполнитель').replace(/;/g, ', '),
             album: values[2] || 'Неизвестный альбом',
             popularity: parseInt(values[6]) || 0,
             explicit: values[7] === 'true',
@@ -262,7 +262,7 @@ function updateStats(tracks) {
     // Подсчет уникальных исполнителей
     const artists = new Set();
     tracks.forEach(track => {
-        track.artist.split(';').forEach(artist => artists.add(artist.trim()));
+        track.artist.split(', ').forEach(artist => artists.add(artist.trim()));
     });
     document.getElementById('unique-artists').textContent = artists.size;
     
@@ -354,4 +354,5 @@ document.addEventListener('DOMContentLoaded', async () => {
             displayTracks(results);
         });
     }
+
 });
