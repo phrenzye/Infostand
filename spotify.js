@@ -128,7 +128,7 @@ async function loadCSVFile() {
         return parseCSV(csvText);
     } catch (error) {
         console.error('Ошибка загрузки CSV файла:', error);
-        document.getElementById('loading-message').textContent = 'Ошибка загрузки файла Liked_Songs.csv';
+        document.getElementById('loading-message').textContent = 'Ошибка загрузки';
         return [];
     }
 }
@@ -308,7 +308,7 @@ function sortTracks(sortBy, tracksToSort) {
 document.addEventListener('DOMContentLoaded', async () => {
     // Загружаем данные из CSV файла
     const loadingMessage = document.getElementById('loading-message');
-    loadingMessage.textContent = 'Загрузка данных из CSV файла...';
+    loadingMessage.textContent = 'Загрузка данных...';
     
     allTracks = await loadCSVFile();
     
@@ -356,3 +356,4 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
 });
+
