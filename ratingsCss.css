@@ -1,374 +1,480 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 body {
-	background-color: #282A36;
-	margin: 0px;
-	padding: 0px;
+    background: linear-gradient(135deg, #282a36, #1a1a2e);
+    color: #f8f8f2;
+    min-height: 100vh;
 }
 
-html::-webkit-scrollbar {
-	display: none;
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
-p::-webkit-scrollbar {
-	display: none;
-}
-
-.movie::-webkit-scrollbar {
-	display: none;
-}
-
-#mainBlock {
-	display: flex;
-	flex-wrap: wrap;
-	margin: 15px;
-	margin-bottom: 50px;
-	padding: 10px;
-	border-radius: 10px;
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    border-bottom: 1px solid #44475a;
 }
 
 h1 {
-	font-family: "Roboto", sans-serif;
-	margin: 10px;
-	padding: 0px;
-	text-align: center;
-	color: #F8F8F2;
-	text-shadow: 2px 2px 5px black;
-	width: 100%;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    background: linear-gradient(90deg, #bd93f9, #ff79c6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-h2 {
-	font-family: "Roboto", sans-serif;
-	margin: 5px auto 5px auto;
-	padding: 0px;
-	text-align: center;
-	color: #BD93F9;
-	text-shadow: 2px 2px 5px black;
-	width: 100%;
+.subtitle {
+    color: #6272a4;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
 }
 
-h3 {
-	font-family: "Roboto", sans-serif;
-	margin: 0px 0px 20px 0px;
-	padding: 0px;
-	text-align: center;
-	color: #F8F8F2;
-	text-shadow: 2px 2px 5px black;
-	width: 100%;
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 20px 0;
+    flex-wrap: wrap;
 }
 
-p {
-	font-family: "Roboto", sans-serif;
-	font-size: 18px;
-	margin: 5px 10px 25px 10px;
-	padding: 0px;
-	text-align: center;
-	color: #F8F8F2;
-	text-shadow: 2px 2px 5px black;
-	max-height: 310px;
-	overflow: scroll;
+.stat-card {
+    background: rgba(68, 71, 90, 0.7);
+    padding: 15px 25px;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 150px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid #44475a;
 }
 
-img {
-	border-radius: 10px 10px 0px 0px;
-	width: 100%;
-	max-width: 380px;
+.stat-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #50fa7b;
 }
 
-.card {
-	margin: 10px 25px 35px 25px;
-	background-color: #44475A;
-	border-radius: 10px;
-	height: 600px;
-	max-width: 460px;
-	max-height: 600px;
-}
-
-iframe {
-	border: none;
-}
-
-#childframe {
-	margin: 0px 25px 0px 25px;
-	width: 420px;
-	height: 480px;
-	border-radius: 10px;
-	transition: transform 0.2s;
-	position: relative;
-	animation: 0.5s show ease;
-}
-
-.movie {
-	margin: 10px 25px 35px 25px;
-	background-color: #44475A;
-	border-radius: 10px;
-	height: 800px;
-	max-width: 400px;
-	max-height: 800px;
-	overflow: scroll;
-}
-
-#childframeMovie {
-	margin: 0px 25px 0px 25px;
-	width: 420px;
-	height: 720px;
-	border-radius: 10px;
-	transition: transform 0.2s;
-	position: relative;
-	animation: 0.5s show ease;
-	padding-bottom: 20px;
-}
-
-.tab-indicator {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	height: 5px;
-	top: 30px;
-	background: #BD93F9;
-	transition: all 0.3s ease;
-	z-index: 0;
-	border-radius: 5px;
-	opacity: 0;
-}
-
-@keyframes show {
-	from { scale: 0; }
-	to { scale: 1; }
-}
-
-#childframe:hover {
-	transform: scale(1.05);
-	position: relative;
-}
-
-#childframeMovie:hover {
-	transform: scale(1.05);
-	position: relative;
-}
-
-#mainFrame {
-	display: flex;
-	flex-wrap: wrap;
-	position: absolute;
-	padding-left: 70px;
-	margin-top: 0px;
-	height: 100%;
-	width: 90%; 
-}
-
-.tabs-wrapper {
-	position: relative;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin-top: 20px;
-	margin-bottom: 0px;
+.stat-label {
+    font-size: 0.9rem;
+    color: #6272a4;
+    margin-top: 5px;
 }
 
 .tabs-container {
-	display: none;
-	position: relative;
-}
-
-.tabs-container.active-tabset {
-	display: flex;
-}
-
-.tab-switcher {
-	cursor: pointer;
-	background: none;
-	color: #F8F8F2;
-	border: none;
-	font-size: 24px;
-	margin: 0 10px;
-	padding: 5px 15px;
-	border-radius: 5px;
-	transition: all 0.3s ease;
-}
-
-.tab-switcher:hover {
-	background-color: #44475A;
-}
-
-.tabs-container {
-	display: flex;
-	justify-content: center;
-	position: sticky;
-	margin-top: 20px;
-	margin-bottom: 0px;
-	text-shadow: 2px 2px 5px black;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin: 30px 0;
+    background: rgba(40, 42, 54, 0.8);
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid #44475a;
 }
 
 .tab {
-	cursor: pointer;
-	background: none;
-	color: #F8F8F2;
-	margin-right: 4px;
-	border-bottom: none;
-	border-radius: 5px 5px 0 0;
-	font-weight: bold;
-	font-family: "Roboto", sans-serif;
-	border: none;
-	font-size: 24px;
-	margin-right: 50px;
-	margin-left: 50px;
+    cursor: pointer;
+    background: none;
+    color: #f8f8f2;
+    margin: 0 15px;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
 }
-		
+
+.tab:hover {
+    background: rgba(189, 147, 249, 0.1);
+    transform: translateY(-2px);
+}
+
 .tab.active {
-	background: none;
-	color: #F8F8F2;
-	border: none;
-	font-family: "Roboto", sans-serif;
+    color: #f8f8f2;
+    font-weight: 700;
 }
-		
+
+.tab.hidden {
+    display: none;
+}
+
+.tab-indicator {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #bd93f9, #ff79c6);
+    transition: all 0.3s ease;
+    z-index: 0;
+    border-radius: 3px;
+    opacity: 0;
+    box-shadow: 0 2px 10px rgba(189, 147, 249, 0.5);
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+button {
+    background: rgba(189, 147, 249, 0.2);
+    color: #f8f8f2;
+    border: 1px solid #bd93f9;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+button:hover {
+    background: rgba(189, 147, 249, 0.3);
+    transform: scale(1.05);
+}
+
+button.active {
+    background: rgba(189, 147, 249, 0.4);
+    box-shadow: 0 0 0 2px #bd93f9;
+}
+
+input[type="text"] {
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: 1px solid #44475a;
+    background: rgba(68, 71, 90, 0.7);
+    color: #f8f8f2;
+    width: 300px;
+    font-size: 1rem;
+    backdrop-filter: blur(10px);
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #bd93f9;
+    box-shadow: 0 0 0 2px rgba(189, 147, 249, 0.3);
+}
+
 .content {
-	display: none;
-	padding: 20px;
+    display: none;
+    animation: fadeIn 0.5s ease;
 }
-		
+
 .content.active {
-	display: block;
+    display: block;
 }
 
-/* Добавьте эти медиа-запросы в конец файла */
+.items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
 
+.item-card {
+    background: rgba(68, 71, 90, 0.8);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid #44475a;
+    animation: fadeIn 0.5s ease;
+    position: relative;
+    min-height: 500px;
+}
+
+.item-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Контейнер изображения с фоном */
+.item-image-container {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #44475a, #343746);
+}
+
+.item-image-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(20px) brightness(0.7);
+    opacity: 0.8;
+    transform: scale(1.1);
+}
+
+.item-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 90%;
+    max-height: 90%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.item-card:hover .item-image {
+    transform: translate(-50%, -50%) scale(1.05);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7);
+}
+
+.item-info {
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.item-name {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #f8f8f2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.item-rating {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #50fa7b;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.rating-stars {
+    color: #ffb86c;
+    font-size: 1rem;
+}
+
+.item-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    color: #6272a4;
+}
+
+.item-description {
+    color: #f8f8f2;
+    line-height: 1.5;
+    font-size: 0.95rem;
+    max-height: 120px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+}
+
+.item-description::-webkit-scrollbar {
+    width: 4px;
+}
+
+.item-description::-webkit-scrollbar-track {
+    background: rgba(68, 71, 90, 0.5);
+    border-radius: 2px;
+}
+
+.item-description::-webkit-scrollbar-thumb {
+    background: #bd93f9;
+    border-radius: 2px;
+}
+
+.no-results {
+    text-align: center;
+    padding: 40px;
+    color: #6272a4;
+    font-size: 1.2rem;
+    grid-column: 1 / -1;
+}
+
+footer {
+    text-align: center;
+    margin-top: 50px;
+    padding: 20px;
+    color: #6272a4;
+    font-size: 0.9rem;
+    border-top: 1px solid #44475a;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Скрытие скроллбаров */
+html::-webkit-scrollbar {
+    display: none;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+/* Адаптивность */
 @media (max-width: 768px) {
-	/* Общие стили для мобильных устройств */
-	body {
-		overflow-x: hidden;
-	}
-	
-	/* Адаптация табов */
-	.tabs-container {
-		margin-top: 10px;
-		justify-content: space-around;
-	}
-	
-	.tab {
-		font-size: 16px;
-		margin-right: 10px;
-		margin-left: 10px;
-	}
-	
-	/* Адаптация основного контента */
-	#mainFrame {
-		padding-left: 0;
-		width: 100%;
-		position: relative;
-		margin-top: 20px;
-		height: 800px;
-	}
-	
-	#mainBlock {
-		margin: 5px;
-		margin-bottom: 30px;
-	}
-	
-	/* Адаптация карточек */
-	.card {
-		margin: 10px auto;
-		max-width: 90%;
-		height: 420px;
-		padding-bottom: 20px;
-	}
-		
-	.movie {
-		margin: 10px auto;
-		max-width: 70%;
-		height: 680px;
-		padding-bottom: 20px;
-		overflow: hidden;
-	}
-	
-	#childframe {
-		width: 100%;
-		height: 480px;
-		margin: 0 auto;
-	}
-
-	#childframeMovie {
-		width: 100%;
-		height: 720px;
-		margin: 0 auto;
-	}
-
-	#childframe:hover {
-	transform: scale(1);
-	position: relative;
-	}
-
-	#childframeMovie:hover {
-		transform: scale(1);
-		position: relative;
-	}
-	
-	img {
-		max-width: 100%;
-	}
-	
-	p {
-		max-height: 180px;
-		overflow: scroll;
-		margin-bottom: 15px;
-	}
-	
-	/* Уменьшаем отступы для заголовков */
-	h1 {
-		font-size: 24px;
-	}
-	
-	h2 {
-		font-size: 20px;
-	}
-	
-	h3 {
-		font-size: 18px;
-		margin-bottom: 10px;
-	}
+    .container {
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .stats {
+        gap: 15px;
+    }
+    
+    .stat-card {
+        min-width: 120px;
+        padding: 12px 18px;
+    }
+    
+    .stat-value {
+        font-size: 1.5rem;
+    }
+    
+    .tabs-container {
+        margin: 20px 0;
+        padding: 8px;
+    }
+    
+    .tab {
+        font-size: 1rem;
+        margin: 0 8px;
+        padding: 10px 16px;
+    }
+    
+    .controls {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    input[type="text"] {
+        width: 100%;
+        max-width: 400px;
+    }
+    
+    .items-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+    }
+    
+    .item-image-container {
+        height: 250px;
+    }
 }
 
 @media (max-width: 480px) {
-	/* Дополнительные стили для очень маленьких экранов */
-	.tab {
-		font-size: 14px;
-		margin-right: 5px;
-		margin-left: 5px;
-		padding: 5px 8px;
-	}
-	
-	.tab-indicator {
-		top: 25px;
-	}
-	
-	#mainBlock {
-		margin: 2px;
-		margin-bottom: 20px;
-	}
+    h1 {
+        font-size: 1.7rem;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+    }
+    
+    .stats {
+        gap: 10px;
+    }
+    
+    .stat-card {
+        min-width: 100px;
+        padding: 10px 15px;
+    }
+    
+    .stat-value {
+        font-size: 1.3rem;
+    }
+    
+    .tab {
+        font-size: 0.9rem;
+        margin: 0 5px;
+        padding: 8px 12px;
+    }
+    
+    .tabs-container {
+        margin: 15px 0;
+    }
+    
+    .items-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .item-card {
+        margin: 0 10px;
+        min-height: 450px;
+    }
+    
+    .item-image-container {
+        height: 200px;
+    }
 }
 
-/* Добавьте в конец файла */
-
-.tab.hidden {
-  display: none;
+.spotify-link {
+    text-align: center;
+    margin: 20px 0;
 }
 
-/* Обновим селекторы для iframe */
-#mainFrame {
-  display: flex;
-  flex-wrap: wrap;
-  position: absolute;
-  padding-left: 70px;
-  margin-top: 0px;
-  height: 100%;
-  width: 90%; 
+.spotify-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border: 2px solid #1db954;
 }
 
-/* Обновим медиа-запросы для .mainFrame */
+.spotify-icon:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(29, 185, 84, 0.4);
+}
+
+/* Адаптивность для иконки Spotify */
 @media (max-width: 768px) {
-  #mainFrame {
-    padding-left: 0;
-    width: 100%;
-    position: relative;
-    margin-top: 20px;
-    height: 800px;
-  }
+    .spotify-icon {
+        width: 45px;
+        height: 45px;
+    }
+}
+
+@media (max-width: 480px) {
+    .spotify-icon {
+        width: 40px;
+        height: 40px;
+    }
 }
