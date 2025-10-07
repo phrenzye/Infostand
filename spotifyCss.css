@@ -342,7 +342,7 @@ footer
     cursor: pointer;
     transition: all .3s ease;
 
-    border: 2px solid #f1c410;
+    border: none;
     border-radius: 50%;
     box-shadow: 0 4px 15px rgba(0, 0, 0, .3);
 }
@@ -372,3 +372,4 @@ footer
         height: 40px;
     }
 }
+
