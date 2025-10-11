@@ -110,9 +110,6 @@ function parseCSV(csvText) {
         tracks.push(track);
     }
     
-    // Обновляем статистику общей длительности
-    document.getElementById('total-duration').textContent = formatTotalDuration(totalDuration);
-    
     return tracks;
 }
 
@@ -255,22 +252,6 @@ function displayTracks(tracksToDisplay) {
     }
 }
 
-// Функция для обновления статистики
-function updateStats(tracks) {
-    document.getElementById('total-tracks').textContent = tracks.length;
-    
-    // Подсчет уникальных исполнителей
-    const artists = new Set();
-    tracks.forEach(track => {
-        track.artist.split(', ').forEach(artist => artists.add(artist.trim()));
-    });
-    document.getElementById('unique-artists').textContent = artists.size;
-    
-    // Подсчет треков с Explicit
-    const explicitCount = tracks.filter(track => track.explicit).length;
-    document.getElementById('explicit-count').textContent = explicitCount;
-}
-
 // Функция для поиска треков
 function searchTracks(query) {
     if (!query) return allTracks;
@@ -314,8 +295,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     if (allTracks.length > 0) {
         loadingMessage.style.display = 'none';
-        
-        updateStats(allTracks);
         // Начинаем с отображения списка
         displayTracksAsList(allTracks);
         
@@ -356,4 +335,3 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
 });
-
