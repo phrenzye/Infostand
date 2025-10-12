@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <link href="writeCss.css" rel="stylesheet" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="write.ico" type="image/x-icon">
+    <title>Библиотека Phrenzye</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Библиотека Phrenzye</h1>
+            <p class="subtitle">Мои попытки опрокинуть орфографию</p>
+
+            <div class="pages-link">
+                <a href="index.html" title="Перейти к оценкам">
+                    <img src="favicon.ico" alt="Оценки" class="return-icon">
+                </a>
+                <a href="spotify.html" title="Перейти к Spotify плейлисту">
+                    <img src="spotify.ico" alt="Spotify" class="spotify-icon">
+                </a>
+            </div>
+        </header>
+
+        <main>
+            <div class="items-grid" id="writings-grid">
+                <!-- Карточки будут загружены через JavaScript -->
+            </div>
+        </main>
+        
+        <footer>
+            <p>Phrenzye's Writings &copy; 2025</p>
+        </footer>
+    </div>
+
+    <!-- Модальное окно для текста -->
+    <div id="text-modal" class="modal">
+        <div class="modal-content">
+            <div class="a4-page">
+                <div class="page-header">
+                    <span class="close-btn">&times;</span>
+                    <h2 id="modal-title"></h2>
+                </div>
+                <div class="page-content">
+                    <div id="modal-text"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="writedata/writings.js"></script>
+    <script src="write.js"></script>
+</body>
+</html>
