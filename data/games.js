@@ -1,6 +1,14 @@
 // data/games.js
 window.gamesData = [
   {
+    "name": "y меня кстати акне на спине",
+    "rating": "0/10",
+    "date": "Easter",
+    "genre": "Egg",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3286880/788f31a004b17e0a89c48dda049d37a81035e821/header.jpg",
+    "description": "Это пасхалка кстати, но да. У меня там прям пиздец, надеюсь к 2028-2029 году избавиться от этой хухни."
+  },
+  {
     "name": "60 Parsecs!",
     "rating": "10/10",
     "date": "03.08.2025",
