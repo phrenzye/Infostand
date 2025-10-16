@@ -1315,7 +1315,7 @@ a {
 
 @media (max-width: 480px) {
     .hero-section {
-        height: 65vh;
+        height: 80vh;
         min-height: 400px;
     }
     
@@ -1336,4 +1336,5 @@ a {
         height: 70px;
     }
 }
+
 
