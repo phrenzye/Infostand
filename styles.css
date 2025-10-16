@@ -139,7 +139,6 @@ main {
 
 /* Стили для вкладок "Музыка" и "Библиотека" - без фона */
 .music-section, .library-section {
-    /* Убрали background, border, box-shadow */
     padding: 0;
     margin: 20px 0;
 }
@@ -1315,7 +1314,7 @@ a {
 
 @media (max-width: 480px) {
     .hero-section {
-        height: 80vh;
+        height: 8vh;
         min-height: 400px;
     }
     
@@ -1336,5 +1335,3 @@ a {
         height: 70px;
     }
 }
-
-

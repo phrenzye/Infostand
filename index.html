@@ -25,6 +25,7 @@
                     <div class="tab" data-tab="series">СЕРИАЛЫ</div>
                     <div class="tab" data-tab="anime">АНИМЕ</div>
                     <div class="tab" data-tab="music">МУЗЫКА</div>
+                    <div class="tab" data-tab="books">КНИГИ</div>
                     <div class="tab" data-tab="library">БИБЛИОТЕКА</div>
                 </nav>
             </div>
@@ -227,6 +228,18 @@
                     </div>
                 </div>
             </div>
+
+            <div class="content" id="books-content">
+                <div class="controls">
+                    <input type="text" id="search-input-series" placeholder="Поиск по названию...">
+                    <button id="sort-date-series" class="active">По дате</button>
+                    <button id="sort-name-series">По названию</button>
+                    <button id="sort-rating-series">По оценке</button>
+                </div>
+                <div class="items-grid" id="books-grid">
+                    <!-- Книги будут загружены через JavaScript -->
+                </div>
+            </div>
         </main>
         
         <footer>
@@ -253,6 +266,7 @@
     <script src="data/movies.js"></script>
     <script src="data/series.js"></script>
     <script src="data/anime.js"></script>
+    <script src="data/books.js"></script>
     <script src="writedata/writings.js"></script>
     <script src="app.js"></script>
 </body>

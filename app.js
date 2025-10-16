@@ -27,7 +27,7 @@ class RatingsApp {
         });
 
         // Обработчики сортировки для игр, фильмов, сериалов, аниме
-        ['games', 'movies', 'series', 'anime'].forEach(type => { // Добавили 'anime'
+        ['games', 'movies', 'series', 'anime', 'books'].forEach(type => { // Добавили 'anime'
             document.getElementById(`sort-name-${type}`)?.addEventListener('click', () => {
                 this.setSort('name', type);
             });
@@ -40,7 +40,7 @@ class RatingsApp {
         });
 
         // Обработчики поиска для игр, фильмов, сериалов, аниме
-        ['games', 'movies', 'series', 'anime'].forEach(type => { // Добавили 'anime'
+        ['games', 'movies', 'series', 'anime', 'books'].forEach(type => { // Добавили 'anime'
             document.getElementById(`search-input-${type}`)?.addEventListener('input', (e) => {
                 this.searchQuery = e.target.value.toLowerCase();
                 this.filterAndDisplayContent(type);
@@ -86,7 +86,7 @@ class RatingsApp {
         this.updateTabIndicator();
         
         // Загружаем контент для соответствующей вкладки
-        if (['games', 'movies', 'series', 'anime'].includes(tabName)) { // Добавили 'anime'
+        if (['games', 'movies', 'series', 'anime', 'books'].includes(tabName)) { // Добавили 'anime'
             this.filterAndDisplayContent(tabName);
         } else if (tabName === 'music') {
             this.loadMusicData();
@@ -136,7 +136,8 @@ class RatingsApp {
             case 'games': return window.gamesData || [];
             case 'movies': return window.moviesData || [];
             case 'series': return window.seriesData || [];
-            case 'anime': return window.animeData || []; // Добавили аниме
+            case 'anime': return window.animeData || [];
+            case 'books': return window.booksData || []; 
             default: return [];
         }
     }
