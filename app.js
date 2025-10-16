@@ -521,20 +521,30 @@ class RatingsApp {
         }
 
         grid.innerHTML = writings.map(writing => `
-            <div class="writing-card" data-file="${writing.file}">
-                <div class="writing-image-container">
-                    <div class="writing-image-background" style="background-image: url('${writing.image}')"></div>
-                    <img src="${writing.image}" alt="${writing.name}" class="writing-image" loading="lazy" 
-                         onerror="this.style.display='none'; this.parentNode.querySelector('.writing-image-background').style.backgroundImage='none'">
-                </div>
-                <div class="writing-info">
-                    <div class="writing-name" title="${writing.name}">${writing.name}</div>
-                    <div class="writing-description">${writing.description}</div>
+        <div class="writing-card" data-file="${writing.file}">
+            <div class="writing-image-container">
+                <div class="writing-image-background" style="background-image: url('${writing.image}')"></div>
+                <img src="${writing.image}" alt="${writing.name}" class="writing-image" loading="lazy" 
+                     onerror="this.style.display='none'; this.parentNode.querySelector('.writing-image-background').style.backgroundImage='none'">
+            </div>
+            <div class="writing-info">
+                <div class="writing-name" title="${writing.name}">${writing.name}</div>
+                <div class="writing-description">${writing.description}</div>
+                
+                <!-- Кнопка скачивания в правом нижнем углу карточки -->
+                <div class="writing-actions">
+                    <a href="writedata/${writing.file}" download class="download-corner-btn" onclick="event.stopPropagation()" title="Скачать файл">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                    </a>
                 </div>
             </div>
-        `).join('');
+        </div>
+    `).join('');
 
-        // Добавляем обработчики клика на карточки
         document.querySelectorAll('.writing-card').forEach(card => {
             card.addEventListener('click', () => {
                 const file = card.getAttribute('data-file');
@@ -543,58 +553,313 @@ class RatingsApp {
         });
     }
 
-    setupWritingsModal() {
-        this.modal = document.getElementById('text-modal');
-        this.modalTitle = document.getElementById('modal-title');
-        this.modalText = document.getElementById('modal-text');
+    openWritingModal(file, title) {
+        const fileExtension = file.split('.').pop().toLowerCase();
         
-        document.querySelector('.close-btn').addEventListener('click', () => {
-            this.closeWritingModal();
-        });
-        
-        this.modal.addEventListener('click', (e) => {
-            if (e.target === this.modal) {
-                this.closeWritingModal();
-            }
-        });
-        
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && this.modal.style.display === 'block') {
-                this.closeWritingModal();
-            }
-        });
-    }
-
-    setupBlinkingTitle() {
-        const title = document.querySelector('#library-content h2');
-        if (title) {
-            const originalText = "Мои записи";
-            const blinkText = "Мои графоманские потуги";
-            
-            setInterval(() => {
-                if (Math.random() < 0.2) {
-                    title.textContent = blinkText;
-                    setTimeout(() => {
-                        title.textContent = originalText;
-                    }, 300);
-                }
-            }, 2000);
+        if (fileExtension === 'rtf') {
+            this.openRTFInNewTab(file, title);
+        } else {
+            this.openTextInNewTab(file, title);
         }
     }
 
-    openWritingModal(file, title) {
-        this.modalTitle.textContent = title;
-        this.modalText.innerHTML = '<div style="text-align: center; padding: 20px;">Загрузка...</div>';
-        this.modal.style.display = 'block';
-        document.body.style.overflow = 'hidden';
+    openRTFInNewTab(file, title) {
+        const timestamp = new Date().getTime();
+        const filePath = `writedata/${file}?v=${timestamp}`;
         
-        this.loadTextFile(file);
+        fetch(filePath, {
+            headers: {
+                'Cache-Control': 'no-cache, no-store, must-revalidate',
+                'Pragma': 'no-cache'
+            }
+        })
+        .then(response => {
+            if (!response.ok) throw new Error('Файл не найден');
+            return response.text();
+        })
+        .then(rtfContent => {
+            const htmlContent = this.convertRTFtoHTML(rtfContent, title, file);
+            this.openHTMLInNewTab(htmlContent, title);
+        })
+        .catch(error => {
+            console.error('Ошибка загрузки RTF файла:', error);
+            this.showErrorInNewTab(file, title, error.message);
+        });
     }
 
-    closeWritingModal() {
-        this.modal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-        this.modalText.innerHTML = '';
+    // Метод для открытия текстовых файлов в новой вкладке
+    openTextInNewTab(file, title) {
+        const filePath = `writedata/${file}`;
+        
+        fetch(filePath)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Файл не найден');
+                }
+                return response.text();
+            })
+            .then(textContent => {
+                const htmlContent = this.convertTextToHTML(textContent, title);
+                this.openHTMLInNewTab(htmlContent, title);
+            })
+            .catch(error => {
+                console.error('Ошибка загрузки файла:', error);
+                this.showErrorInNewTab(file, title, error.message);
+            });
+    }
+
+    // Улучшенный конвертер RTF в HTML с кликабельной ссылкой для скачивания
+    convertRTFtoHTML(rtfText, title, fileName) {
+        let html = rtfText
+            .replace(/\\rtf1.*?\\uc0\\pard\\plain/g, '')
+            .replace(/\\par\s*/g, '<br>')
+            .replace(/\\tab\s*/g, '&nbsp;&nbsp;&nbsp;&nbsp;')
+            .replace(/[{}]/g, '')
+            .replace(/\\[a-z]+\d*\s*/g, '')
+            .replace(/(<br>\s*){2,}/g, '</p><p>')
+            .trim();
+
+        if (html && !html.startsWith('<p>')) {
+            html = `<p>${html}</p>`;
+        }
+
+        // Создаем кликабельную ссылку для скачивания
+        const downloadLink = `<a href="writedata/${fileName}" download style="color: #bd93f9; text-decoration: none; font-weight: 600; border-bottom: 1px dashed #bd93f9; transition: all 0.3s ease;" onmouseover="this.style.color='#ff79c6'; this.style.borderBottomColor='#ff79c6'" onmouseout="this.style.color='#bd93f9'; this.style.borderBottomColor='#bd93f9'">скачать сам файл</a>`;
+
+        return `
+    <!DOCTYPE html>
+    <html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>${title}</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                line-height: 1.6;
+                color: #333;
+                background: #f8f8f2;
+                padding: 0;
+                margin: 0;
+            }
+            
+            .writing-container {
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 40px 20px;
+                background: white;
+                min-height: 100vh;
+                box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+            }
+            
+            .writing-header {
+                text-align: center;
+                margin-bottom: 40px;
+                padding-bottom: 20px;
+                border-bottom: 2px solid #bd93f9;
+            }
+            
+            .writing-title {
+                font-size: 2.5rem;
+                color: #282a36;
+                margin-bottom: 10px;
+                font-weight: 700;
+            }
+            
+            .writing-meta {
+                color: #6272a4;
+                font-size: 0.9rem;
+                line-height: 1.4;
+            }
+            
+            .writing-content {
+                font-size: 1.1rem;
+                color: #44475a;
+            }
+            
+            .writing-content p {
+                margin-bottom: 1.5em;
+                text-align: justify;
+            }
+            
+            .writing-content br {
+                margin-bottom: 0.5em;
+            }
+            
+            .back-button {
+                display: inline-block;
+                background: #bd93f9;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 25px;
+                text-decoration: none;
+                font-weight: 600;
+                margin-top: 30px;
+                transition: all 0.3s ease;
+            }
+            
+            .back-button:hover {
+                background: #a56ef1;
+                transform: translateY(-2px);
+            }
+
+            /* Стили для ссылки скачивания в тексте */
+            .download-text-link {
+                color: #bd93f9;
+                text-decoration: none;
+                font-weight: 600;
+                border-bottom: 1px dashed #bd93f9;
+                transition: all 0.3s ease;
+                cursor: pointer;
+            }
+
+            .download-text-link:hover {
+                color: #ff79c6;
+                border-bottom-color: #ff79c6;
+            }
+            
+            @media (max-width: 768px) {
+                .writing-container {
+                    padding: 20px 15px;
+                }
+                
+                .writing-title {
+                    font-size: 2rem;
+                }
+                
+                .writing-content {
+                    font-size: 1rem;
+                }
+
+                .writing-meta {
+                    font-size: 0.85rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="writing-container">
+            <div class="writing-header">
+                <h1 class="writing-title">${title}</h1>
+                <div class="writing-meta">
+                    Форматирование может быть искажено. Если есть желание прочитать полностью, рекомендуется ${downloadLink}*
+                </div>
+            </div>
+            
+            <div class="writing-content">
+                ${html || '<p style="text-align: center; color: #888;">Файл пуст или не может быть отображен</p>'}
+            </div>
+            
+            <div style="text-align: center;">
+                <a href="javascript:window.close()" class="back-button">Закрыть вкладку</a>
+            </div>
+        </div>
+    </body>
+    </html>`;
+    }
+
+    // Конвертер для текстовых файлов
+    convertTextToHTML(textContent, title) {
+        const formattedText = textContent
+            .replace(/\n/g, '<br>')
+            .replace(/(<br>\s*){2,}/g, '</p><p>');
+
+        const html = textContent && !textContent.startsWith('<p>') ? 
+            `<p>${formattedText}</p>` : formattedText;
+
+        return `
+    <!DOCTYPE html>
+    <html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>${title}</title>
+        <style>
+            /* Тот же CSS что и выше */
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body { font-family: 'Segoe UI', sans-serif; line-height: 1.6; color: #333; background: #f8f8f2; }
+            .writing-container { max-width: 800px; margin: 0 auto; padding: 40px 20px; background: white; min-height: 100vh; box-shadow: 0 0 30px rgba(0,0,0,0.1); }
+            .writing-header { text-align: center; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 2px solid #bd93f9; }
+            .writing-title { font-size: 2.5rem; color: #282a36; margin-bottom: 10px; font-weight: 700; }
+            .writing-meta { color: #6272a4; font-size: 0.9rem; }
+            .writing-content { font-size: 1.1rem; color: #44475a; }
+            .writing-content p { margin-bottom: 1.5em; text-align: justify; }
+            .back-button { display: inline-block; background: #bd93f9; color: white; padding: 10px 20px; border-radius: 25px; text-decoration: none; font-weight: 600; margin-top: 30px; transition: all 0.3s ease; }
+            .back-button:hover { background: #a56ef1; transform: translateY(-2px); }
+            @media (max-width: 768px) { .writing-container { padding: 20px 15px; } .writing-title { font-size: 2rem; } .writing-content { font-size: 1rem; } }
+        </style>
+    </head>
+    <body>
+        <div class="writing-container">
+            <div class="writing-header">
+                <h1 class="writing-title">${title}</h1>
+                <div class="writing-meta">Из библиотеки Phrenzye</div>
+            </div>
+            
+            <div class="writing-content">
+                ${html || '<p style="text-align: center; color: #888;">Файл пуст</p>'}
+            </div>
+            
+            <div style="text-align: center;">
+                <a href="javascript:window.close()" class="back-button">Закрыть вкладку</a>
+            </div>
+        </div>
+    </body>
+    </html>`;
+    }
+
+    // Метод для открытия HTML в новой вкладке
+    openHTMLInNewTab(htmlContent, title) {
+        const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const newWindow = window.open(url, '_blank');
+        
+        // Освобождаем URL когда вкладка закроется
+        if (newWindow) {
+            newWindow.addEventListener('beforeunload', () => {
+                URL.revokeObjectURL(url);
+            });
+        }
+    }
+
+    // Метод для показа ошибок в новой вкладке
+    showErrorInNewTab(file, title, errorMessage) {
+        const errorHTML = `
+    <!DOCTYPE html>
+    <html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ошибка - ${title}</title>
+        <style>
+            body { font-family: 'Segoe UI', sans-serif; background: #f8f8f2; color: #333; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+            .error-container { text-align: center; padding: 40px; background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+            .error-icon { font-size: 4rem; margin-bottom: 20px; }
+            .error-title { color: #ff5555; margin-bottom: 15px; }
+            .error-message { color: #666; margin-bottom: 25px; }
+            .button { display: inline-block; background: #bd93f9; color: white; padding: 12px 24px; border-radius: 25px; text-decoration: none; margin: 5px; }
+        </style>
+    </head>
+    <body>
+        <div class="error-container">
+            <div class="error-icon">⚠️</div>
+            <h2 class="error-title">Ошибка загрузки</h2>
+            <p class="error-message">${errorMessage}</p>
+            <div>
+                <a href="writedata/${file}" download class="button">Скачать файл</a>
+                <a href="javascript:window.close()" class="button">Закрыть</a>
+            </div>
+        </div>
+    </body>
+    </html>`;
+        
+        this.openHTMLInNewTab(errorHTML, `Ошибка - ${title}`);
     }
 
     loadTextFile(file) {
@@ -646,5 +911,4 @@ class RatingsApp {
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
     new RatingsApp();
-
 });

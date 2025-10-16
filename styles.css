@@ -1335,3 +1335,74 @@ a {
         height: 70px;
     }
 }
+
+.writing-actions {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+}
+
+.download-corner-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(189, 147, 249, 0.9);
+    color: white;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.download-corner-btn:hover {
+    background: rgba(165, 110, 241, 0.95);
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Адаптивность для кнопок */
+@media (max-width: 768px) {
+    .download-overlay {
+        opacity: 1; /* Всегда показываем на мобильных */
+        transform: translateY(0);
+    }
+    
+    .download-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .download-corner-btn {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .download-corner-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+.download-text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: #bd93f9;
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px dashed #bd93f9;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+.download-text-link:hover {
+    color: #ff79c6;
+    border-bottom-color: #ff79c6;
+    background: rgba(189, 147, 249, 0.1);
+}
