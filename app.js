@@ -84,6 +84,10 @@ class RatingsApp {
         document.getElementById(`${tabName}-content`).classList.add('active');
         
         this.updateTabIndicator();
+
+        window.scrollTo({
+            top: 0
+        });
         
         // Загружаем контент для соответствующей вкладки
         if (['games', 'movies', 'series', 'anime', 'books'].includes(tabName)) { // Добавили 'anime'
@@ -642,4 +646,5 @@ class RatingsApp {
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
     new RatingsApp();
+
 });
