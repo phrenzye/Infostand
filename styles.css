@@ -1247,12 +1247,7 @@ a {
     color: #6272a4;
     font-size: 0.9rem;
     animation: bounce 2s infinite;
-    cursor: pointer;
     transition: color 0.3s ease;
-}
-
-.hero-scroll-indicator:hover {
-    color: #bd93f9;
 }
 
 .scroll-arrow {
@@ -1262,10 +1257,6 @@ a {
     border-bottom: 2px solid #bd93f9;
     transform: rotate(45deg);
     transition: border-color 0.3s ease;
-}
-
-.hero-scroll-indicator:hover .scroll-arrow {
-    border-color: #ff79c6;
 }
 
 @keyframes bounce {
