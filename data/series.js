@@ -2,7 +2,7 @@
 window.seriesData = [
   {
     "name": "Аркейн",
-    "rating": "11/10",
+    "rating": "10/10",
     "date": "22.10.2025",
     "genre": "Легенда",
     "image": "https://avatars.mds.yandex.net/get-kinopoisk-image/4303601/fc5e3c9b-6798-4e20-8198-cbc6e1ab567b/1920x",
