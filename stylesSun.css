@@ -581,6 +581,34 @@ input[type="text"]:focus {
     animation: slideDown 0.5s ease;
 }
 
+.writing-actions {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+}
+
+.download-corner-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: #333333;
+    color: white;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.download-corner-btn:hover {
+    background: #555555;
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
 @keyframes slideDown {
     from {
         opacity: 0;
