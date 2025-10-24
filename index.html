@@ -3,25 +3,19 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8" />
-    <link href="styles.css" rel="stylesheet" type="text/css" />
+    <link id="theme-stylesheet" href="styles.css" rel="stylesheet" type="text/css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" href="favicon.png" type="image/x-icon">
     <title>Phrenzye Infostand</title>
-    <!-- Cronitor RUM -->
-    <script async src="https://rum.cronitor.io/script.js"></script>
-    <script>
-        window.cronitor = window.cronitor || function() { (window.cronitor.q = window.cronitor.q || []).push(arguments); };
-        cronitor('config', { clientKey: 'dd74a94f8706bdce26b20e282d1cd1bf' });
-    </script>
 </head>
 <body>
     <div class="container">
         <header class="sticky-header">
             <div class="header-content">
                 <div class="logo-section">
-                    <img src="favicon.png" alt="Logo" class="site-logo">
+                    <img src="favicon.png" alt="Logo" class="site-logo" style="cursor: pointer;">
                 </div>
                 
                 <nav class="nav-tabs">
@@ -49,7 +43,7 @@
                             <img src="rose.png" alt="Phrenzye">
                         </div>
                         <h1 class="hero-title">Phrenzye</h1>
-                        <p class="hero-subtitle">INFP | Мечтатель & Создатель</p>
+                        <p class="hero-subtitle">INFP-T | Мечтатель & Создатель</p>
                         <p class="hero-description">Добро пожаловать в недра верхнего интернета!<br>Здесь можно немного узнать обо мне, посмотреть моё мнение о играх, фильмах, сериалах и даже аниме. Также здесь можно посмотреть мой плейлист Spotify и, боже упаси, посмотреть что я пишу.</p>
                         <div class="hero-scroll-indicator">
                             <span>Листайте вниз</span>
@@ -64,7 +58,7 @@
                             <div class="text-content">
                                 <h2 class="section-title">Тип личности</h2>
                                 <div class="section-text">
-                                    <p><strong>Тип личности:</strong> INFP (Посредник)<br><strong>Черты характера:</strong> Интровертный - 88%, Интуитивный - 77%, Эмоциональный - 51%, Гибкий - 56%, Неспокойный - 68%<br><strong>Роль:</strong> Дипломат<br><strong>Стратегия:</strong> Постоянное совершенствование</p>
+                                    <p><strong>Тип личности:</strong> INFP-T (Посредник)<br><strong>Черты характера:</strong> Интровертный - 88%, Интуитивный - 77%, Эмоциональный - 51%, Гибкий - 56%, Неспокойный - 68%<br><strong>Роль:</strong> Дипломат<br><strong>Стратегия:</strong> Постоянное совершенствование</p>
                                     <p>INFP (Посредник) - один из самых добрых, чувствительных и любопытных типов личности. Посредник - это кроткая душа, полная идеалистической энергии, однако он легко может почувствовать себя потерянным, когда его творческие устремления не приносят плодов.</p>
                                 </div>
                             </div>
@@ -79,7 +73,7 @@
                             <div class="text-content">
                                 <h2 class="section-title">Хобби и увлечения</h2>
                                 <div class="section-text">
-                                    <p>Занимаюсь писательством, когда есть вдохновение. Правда конечно, уже 2 года профессионально просиживаю жопу и ниче не делаю. С недавних пор, стараюсь вернуться к писательству. Ещё фоткаться люблю, но поскольку я не особо фотогеничный, да и фоткаю хреново, мало какие идеи воплощаются в реальность.</p>
+                                    <p>Занимаюсь писательством, иногда кодингом, когда есть вдохновение. Правда конечно, уже 2 года профессионально просиживаю жопу и ниче не делаю. С недавних пор, стараюсь вернуться к писательству. Ещё фоткаться люблю, но поскольку я не особо фотогеничный, да и фоткаю хреново, мало какие идеи воплощаются в реальность.</p>
                                     <p>В планах на будущее - хочу научится рисованию и игре на гитаре. Возможно еще хотелось бы серьезно заняться своими навыками готовки. Еще кстати чутка уссыкаюсь по викторианской эпохе, в частности по архитектуре.</p>
                                 </div>
                             </div>
@@ -275,10 +269,5 @@
     <script src="data/books.js"></script>
     <script src="writedata/writings.js"></script>
     <script src="app.js"></script>
-    <script data-collect-dnt="true" async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
 </body>
-
 </html>
-
-
-

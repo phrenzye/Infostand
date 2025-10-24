@@ -6,6 +6,7 @@ class RatingsApp {
         this.searchQuery = '';
         this.currentMusicView = 'list';
         this.allTracks = [];
+        this.isDarkTheme = true;
         this.init();
     }
 
@@ -15,9 +16,60 @@ class RatingsApp {
         this.initTabIndicator();
         this.setupBlinkingTitle();
         this.setupWritingsModal();
+        this.loadThemePreference();
+    }
+
+    toggleTheme() {
+        this.isDarkTheme = !this.isDarkTheme;
+        this.applyTheme();
+        this.saveThemePreference();
+    }
+
+    applyTheme() {
+        const currentStylesheet = document.getElementById('theme-stylesheet');
+        const favicon = document.querySelector('link[rel="icon"]');
+        const heroAvatar = document.querySelector('.hero-avatar img');
+        const siteLogo = document.querySelector('.site-logo'); // Добавляем эту строку
+        
+        if (this.isDarkTheme) {
+            // Переключаем на темную тему
+            currentStylesheet.href = 'styles.css';
+            favicon.href = 'favicon.png';
+            if (heroAvatar) {
+                heroAvatar.src = 'rose.png';
+            }
+            if (siteLogo) {
+                siteLogo.src = 'favicon.png'; // Меняем логотип в хедере
+            }
+        } else {
+            // Переключаем на светлую тему
+            currentStylesheet.href = 'stylesSun.css';
+            favicon.href = 'faviconsun.png';
+            if (heroAvatar) {
+                heroAvatar.src = 'rosesun.png';
+            }
+            if (siteLogo) {
+                siteLogo.src = 'faviconsun.png'; // Меняем логотип в хедере
+            }
+        }
+    }
+
+    saveThemePreference() {
+        localStorage.setItem('theme', this.isDarkTheme ? 'dark' : 'light');
+    }
+
+    loadThemePreference() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            this.isDarkTheme = savedTheme === 'dark';
+        }
+        this.applyTheme();
     }
 
     setupEventListeners() {
+        document.querySelector('.site-logo').addEventListener('click', () => {
+            this.toggleTheme();
+        });
         // Обработчики табов
         document.querySelectorAll('.tab').forEach(tab => {
             tab.addEventListener('click', (e) => {
