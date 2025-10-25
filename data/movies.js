@@ -1,6 +1,22 @@
 // data/movies.js
 window.moviesData = [
   {
+    "name": "Человек-муравей",
+    "rating": "10/10",
+    "date": "25.10.2025",
+    "genre": "Фантастика",
+    "image": "https://avatars.mds.yandex.net/get-kinopoisk-image/1599028/427ee275-67c0-4a37-b10a-66ca1e4197d5/1920x",
+    "description": "Человек-паук с кислой жопкой. Артур и минипуты во вселенной марвел. Шевцов и Джарахов сражаются за титул самого мелкого. А вообще, наверное один из самых чиловых фильмов этой вселенной, с большим количеством ржомба-бомба моментов."
+  },
+  {
+    "name": "Мстители: Эра Альтрона",
+    "rating": "10/10",
+    "date": "25.10.2025",
+    "genre": "Фантастика",
+    "image": "https://kinopoisk-ru.clstorage.net/3hon04365/fb714cbgP/oybpk3AI8j5Pv16wm5nTiNDW6-tmHzbhawcLHYCM_mVEbw6GwMAhV3PueO5ixlchgbVWR8NgeVMTJrorrNnBNpIvoc9tdLsLNuInja74t42V5pK3YlofwDozdnHESD6h_MO-FzxAiffXpxn2B7cuROSgVy7uFBROJpcGHtGgpQ-vrmUjXMi3ghOrr6hXpe8cdLP325KqhjU7Ro_R-KjyDXBT6j8UzN3He0Nhi5cDsuhQZE9icgEYXpbzT8a5DEEX53oJg0hMe76zt7OMp_lXoHh7Q-9CLo7ZG9oThcwoqn1QD477sCCdH3e76XOz81q8DORLFrb5CCYmw6NWYTgda-vm6adkYDeKw2OvIKt9yxRQ75fHetrqVWeWd5EY-JaFMBeWz-S4Bc9np1V7l8_K9OzYi7IWbQwakvfryiUwoZeLGqV7pIQj3m9LN6BLGbe42FOTQ0IGEhUjAnthhPxeuVQbGgukrM3LD9cNu_-npvDsXHeyji28srY3z67V2AGDH07Vpyion8Jva1-M783P2EhfF7Mq4o6dU077IcwEDvE010r7WGB1mzfz3R87izIwlAjHgp69NO421zv-YRjdH7Oa2VdMgC-2m-93gNPBq5wIC0tPVlqWZSf-Z-3oJH655IOKa2j0iVenG2mXa5carJDITwaCtQwCss_X1r30WYMLZjFHMCjnRs9re6C33du0hB9rV1omajkjWnfhmFzyncRjih9ovNEDY-NBj-c3JtyMZOdKvvV4Vnqry1I5zJk3O2pdl6xkq7LL90vYX_3zFIgr738ulgbh5xpfDazoarkoL_LDfDgNt3fnCTNjS074FKzP7mpd-BbG4zOW0dDRV-NWOc_wBK-Cs8uHYPe98_h4m8dfpvYm-Z8KB400rFLlwIeO97DccZcLT_mTA9PaxAgspwKC6aie9idLNrlYyecDYnWLrPQPpnN_A1TT1aewjH8Xe-p6js0zYo8JgBCahWx3xrdU2DXH_-v1B3cforAYQC_KMjE0MqJTn07BtBEj-_pRB9z8277XjxeM43n3pJD3E196LtZ5PwIztaCYpsXMX0aboPSpw19LiSOD38JU7FCnRrb1eGJe309OSQSdoz9iJQck9JdG_3-fALPFO_B0n0PLOpJWPW_-B9WQjN4tTHcSv2CMkYfH46331z_uKAQwf96C6fSaEn-_MsXAST_rImnvEHDbvjMf2xTD9d-U0H8H764ugvEzWu_5TPj2hfyLBsM4eBlz5zcVk2uPjjycIFuivv2UxvZjp8IN0GX76-bJa0wYi8K7u7ck7xHLDOgfu2s6bu7t8w57-SioesVsF5pzzPjJs0M_aSefyy5AQIB_hsKNnNoaN2NazRSpk2vuZWcoSB8mNxtXUO9NVyxYs4uHwuYmMT-eV31wFBL9yJPGi7y0MbP380k7s69GVHRQww4a9UhWLsN_UtnIzS9_NsWP5FijMjcH1xR3leNcwFe32-raLnUrnmuFjLx2MeQHGh-4wNGDZ69JM6cTqlB01E_KeokkCtajNzKNhAErH6Ktx1zcB0p_k_PcW83XyBwPs8u2csalF_IfjYBQ5pWs81rrnHDRkwvj7bPjRzZoVNinhjqNYGZmR9ciocAl2z-6dV_cmK_Gdxdb3DuhdxysY0e3xtK67Vtaaz2EHAIRQI8qZxy8ff-j55FDa6vqTJBQL2qeBZyyQkNv2tWUiZcvugkDyBSztvMng7TLIY8kcNdjd_aGmh1DmosFKGRyvagXAi_8XHH3j-N1P5c3OkjoNINCmmWcWl6PM5JRwNUTZ-7Fg9zwW4Jj75uw94EvDABjO9umeiYtR3KnbeAIDhXAA4pj4ISJn_Oz5aN3q8q0BPj_GoYdaIKSJ9fGZVi1N3sWWWvkzGdOow9bKDf5txRMcx_PWiaONXsSoylw-A451JNSmywk3YcHd4ULf7Na4Oj8_5LKfXQ2pudrNjW0ob9v8jErkJhfXseLM5ybLdc0nNfX4_r6Yjlzgo8FeBAWLRBD5q94LCV3h28B77ez6ryMiANuAm2gUkJzQxKllCG_g5a9kyzUr5Kv6zugP1Xz3NBzyzMmElb1P5qXfRAIajXA2wInpECNd6urEa9nC2LweKQjHrqVMJImJ0u2wVBV9wMy-ZtEoFtKn5tPkON906hUL4sLJhri-cNSX3U8GAapLNPGByjomZ9DH-Hz378e1Mys27aqCTzmemefMm0wyaMfFkFzPMwbiqtzc0yflctEZCeX-zYqssHDHjN1GJBWOUSXAj_sTK1b36-Jgzs_RnicWCMGtrF0Kl5Dn3bxNBkjZyZ5G2wUj4o_b78w8427lKxXC2_OEqJxH-ZftZh4Thnk016_XABxOyPLDQO7H8p4sATzRrqxfMpOzx-y3USBJ69KVYv4oPvux0vXaHcBMwxU84vP4i7KmRuS7-kw7PJBPI_-Y_ys_bMzt4n3rztGxGxEvwYC3fwOGo__2nUUNYOLtsGr1PwbTpNPQzzLoacweDPL_8JeOrW3nputMJh2OUz7UotUSKWT_zNNs183qtgINEeCNqlo2hY3_6IBfLG_ayo941DME57fa0c045nDcHAzG2P6qurtX85vicy81hVgb1L3TCSJf7-zgcv3J7L4xKx_Ej6lcKouSxsuxSgBc0PmPftMYONWu2u_kEepw0BYG3P7KsLqFWtut-l4dGIRoENO79RQEU_HN8nDE5e-tNDYo1YuBfwKPsu7ytm4rTsPukV3JIBXFn8Lj9AXlTOoeJsTkzZqarXL0t8RiAT-lRyXBhtw4H0D19PpfwPzMuh8QI8uwv18yhqz11JllNGreypVE8R0s1LTl3Pg-_W_KJw__wsq0rLt83aXgegkgmV0j_bDIOBR189DES9ns974YEDvam7htArSw7PK7YwJm_Ni-Ud8CBuO738PIHfdW0ygZ3dbpkoqmdPC52EI8KplRHMS__Dc0U9TT42XB18ObHAEe0qqBSjSkgsQ",
+    "description": "Имея доступ в интернет, альтрон решил ограничится одним городом, а не всем миром. Ну а так, фильм прямо кишит экшеном. Начинается с боя и заканчивается еще более маштабной пиздиловкой. Сложно говорить о том, что понравилось, когда понравилось всё и нет к чему прикопаться, а возможно я просто недальновидный олух"
+  },
+  {
     "name": "Стражи Галактики",
     "rating": "10/10",
     "date": "24.10.2025",
