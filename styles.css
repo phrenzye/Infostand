@@ -1397,3 +1397,7 @@ a {
     border-bottom-color: #ff79c6;
     background: rgba(189, 147, 249, 0.1);
 }
+
+div[data-tab="library"] {
+    display: none;
+}
