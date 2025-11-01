@@ -12,7 +12,7 @@ class RatingsApp {
 
     init() {
         this.setupEventListeners();
-        this.loadContent('about');
+        this.handleHashNavigation();
         this.initTabIndicator();
         this.setupBlinkingTitle();
         this.setupWritingsModal();
@@ -121,12 +121,43 @@ class RatingsApp {
             this.closeVpnWarning();
         });
 
-        // Секретная функция для показа/скрытия аниме
-        this.setupSecretToggle();
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                const tabName = e.target.getAttribute('data-tab');
+                this.switchTab(tabName);
+            });
+        });
+
+        window.addEventListener('hashchange', () => {
+            this.handleHashNavigation();
+        });
     }
 
+    // Новый метод для обработки навигации по хешу
+    handleHashNavigation() {
+        const hash = window.location.hash.substring(1); // Убираем # из хеша
+        
+        if (hash && this.isValidTab(hash)) {
+            // Если хеш соответствует существующей вкладке, переключаемся на неё
+            this.switchTab(hash);
+        } else {
+            // Иначе загружаем вкладку по умолчанию
+            this.loadContent('about');
+        }
+    }
+
+    // Метод для проверки валидности имени вкладки
+    isValidTab(tabName) {
+        const validTabs = ['about', 'games', 'movies', 'series', 'anime', 'music', 'books', 'library'];
+        return validTabs.includes(tabName);
+    }
+
+    // Обновляем метод switchTab для поддержки хеша
     switchTab(tabName) {
         this.currentTab = tabName;
+        
+        // Обновляем URL с хешем
+        window.location.hash = tabName;
         
         // Обновляем активные табы
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -142,7 +173,7 @@ class RatingsApp {
         });
         
         // Загружаем контент для соответствующей вкладки
-        if (['games', 'movies', 'series', 'anime', 'books'].includes(tabName)) { // Добавили 'anime'
+        if (['games', 'movies', 'series', 'anime', 'books'].includes(tabName)) {
             this.filterAndDisplayContent(tabName);
         } else if (tabName === 'music') {
             this.loadMusicData();
