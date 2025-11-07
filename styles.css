@@ -1402,6 +1402,6 @@ div[data-tab="library"] {
     display: none;
 }
 
-#hidden-section {
+.hidden-section {
     display: none;
 }
