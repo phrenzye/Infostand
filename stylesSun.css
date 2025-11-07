@@ -1452,3 +1452,7 @@ input[type="text"]:focus {
 div[data-tab="library"] {
     display: none;
 }
+
+#hidden-section {
+    display: none;
+}
