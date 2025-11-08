@@ -201,7 +201,40 @@
                         <button id="sort-recent-music">Сначала новые</button>
                         <button id="sort-popular-music">По популярности</button>
                         <button id="view-toggle-music">Показать плееры</button>
+                        <button id="upload-csv-btn">Загрузить CSV</button>
+                        <button id="show-matches-btn" style="display:none;">Показать только совпадения</button>
+                        <input type="file" id="user-csv-input" accept=".csv" style="display:none;">
                     </div>
+
+                    <!-- Модальное окно с инструкцией -->
+                    <div id="csvModal" class="modal">
+                      <div class="modal-content csv-modal">
+                        <div class="csv-header">
+                          <h2>Импорт CSV из Spotify</h2>
+                          <span class="close-btn" id="closeCsvModal">&times;</span>
+                        </div>
+
+                        <div class="csv-body" id="csvDropZone">
+                          <div class="csv-instructions">
+                            <p>Чтобы добавить свой плейлист:</p>
+                            <ol>
+                              <li>Зайди на <a href="https://exportify.net" target="_blank">exportify.net</a> и авторизуйся через Spotify.</li>
+                              <li>Выбери нужный плейлист и нажми <strong>Export to CSV</strong>.</li>
+                              <li>Перетащи сюда CSV-файл или нажми кнопку ниже.</li>
+                            </ol>
+                          </div>
+
+                          <div class="csv-upload">
+                            <button id="csvUploadBtn" class="csv-upload-btn">Добавить файл</button>
+                            <input type="file" id="user-csv-input" accept=".csv" style="display:none;">
+                            <p class="csv-tip">Поддерживается только формат .csv</p>
+                          </div>
+
+                          <div id="csvDropMessage" class="csv-drop-message">Отпустите файл, чтобы загрузить</div>
+                        </div>
+                      </div>
+                    </div>
+
 
                     <!-- Предупреждение о VPN -->
                     <div class="vpn-warning" id="vpnWarning" style="display: none;">
@@ -212,6 +245,16 @@
                             </div>
                             <button class="vpn-warning-close" id="vpnWarningClose">×</button>
                         </div>
+                    </div>
+
+                    <div class="match-notification" id="matchNotification" style="display: none;">
+                      <div class="match-notification-content">
+                        <span class="match-notification-icon">🎵</span>
+                        <div class="match-notification-text" id="matchNotificationText">
+                          Найдено совпадений: 0
+                        </div>
+                        <button class="match-notification-close" id="matchNotificationClose">×</button>
+                      </div>
                     </div>
                     
                     <div class="tracks-container" id="tracks-container">

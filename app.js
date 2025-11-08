@@ -33,7 +33,7 @@ class RatingsApp {
         
         if (this.isDarkTheme) {
             // Переключаем на темную тему
-            currentStylesheet.href = 'styles.css';
+            currentStylesheet.href = 'styles.css?v=' + new Date().getTime();
             favicon.href = 'favicon.png';
             if (heroAvatar) {
                 heroAvatar.src = 'rose.png';
@@ -43,7 +43,7 @@ class RatingsApp {
             }
         } else {
             // Переключаем на светлую тему
-            currentStylesheet.href = 'stylesSun.css';
+            currentStylesheet.href = 'stylesSun.css?v=' + new Date().getTime();
             favicon.href = 'faviconsun.png';
             if (heroAvatar) {
                 heroAvatar.src = 'rosesun.png';
@@ -115,6 +115,68 @@ class RatingsApp {
         document.getElementById('search-input-music')?.addEventListener('input', (e) => {
             this.searchMusicTracks(e.target.value);
         });
+
+        // Кнопка открытия окна
+        document.getElementById('upload-csv-btn')?.addEventListener('click', () => {
+          document.getElementById('csvModal').style.display = 'block';
+        });
+
+        // Кнопка закрытия
+        document.getElementById('closeCsvModal')?.addEventListener('click', () => {
+          document.getElementById('csvModal').style.display = 'none';
+        });
+
+        // Кнопка выбора файла
+        document.getElementById('csvUploadBtn')?.addEventListener('click', () => {
+          document.getElementById('user-csv-input').click();
+        });
+
+        document.getElementById('matchNotificationClose')?.addEventListener('click', () => {
+            this.closeMatchNotification();
+        });
+
+        // Обработка выбора файла
+        document.getElementById('user-csv-input')?.addEventListener('change', (e) => {
+          const file = e.target.files[0];
+          if (file) this.handleUserCSVUpload(file);
+          document.getElementById('csvModal').style.display = 'none';
+        });
+
+        // Drag & Drop
+        const dropZone = document.getElementById('csvDropZone');
+        const dropMsg = document.getElementById('csvDropMessage');
+
+        if (dropZone) {
+          dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+            dropMsg.style.display = 'block';
+          });
+
+          dropZone.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            dropMsg.style.display = 'none';
+          });
+
+          dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            dropMsg.style.display = 'none';
+            const file = e.dataTransfer.files[0];
+            if (file && file.name.endsWith('.csv')) {
+              this.handleUserCSVUpload(file);
+              document.getElementById('csvModal').style.display = 'none';
+            } else {
+              alert('Пожалуйста, загрузите файл формата CSV.');
+            }
+          });
+        }
+
+        document.getElementById('show-matches-btn')?.addEventListener('click', () => {
+            this.toggleShowMatches();
+        });
+
 
         // Обработчик для закрытия предупреждения VPN
         document.getElementById('vpnWarningClose')?.addEventListener('click', () => {
@@ -428,6 +490,10 @@ class RatingsApp {
         } else {
             this.displayTracksAsList(tracksToDisplay);
         }
+
+        if (this.matchedTracks?.length) {
+            this.highlightMatches(this.matchedTracks);
+        }
     }
 
     displayTracksAsEmbed(tracksToDisplay) {
@@ -555,6 +621,29 @@ class RatingsApp {
         }
     }
 
+    showMatchNotification(count) {
+        const notif = document.getElementById('matchNotification');
+        const text = document.getElementById('matchNotificationText');
+        if (!notif || !text) return;
+
+        text.textContent = `Найдено совпадений: ${count}`;
+        notif.style.display = 'block';
+        notif.classList.add('visible');
+
+        clearTimeout(this.matchNotifTimeout);
+        this.matchNotifTimeout = setTimeout(() => {
+            this.closeMatchNotification();
+        }, 6000);
+    }
+
+    closeMatchNotification() {
+        const notif = document.getElementById('matchNotification');
+        if (notif) {
+            notif.classList.remove('visible');
+            setTimeout(() => (notif.style.display = 'none'), 300);
+        }
+    }
+
     searchMusicTracks(query) {
         if (!query) {
             this.displayMusicTracks(this.allTracks);
@@ -591,6 +680,64 @@ class RatingsApp {
         document.getElementById(`sort-${sortBy}-music`).classList.add('active');
         
         this.displayMusicTracks(sortedTracks);
+    }
+
+    // Обработка пользовательского CSV
+    async handleUserCSVUpload(file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const csvText = e.target.result;
+            const userTracks = this.parseCSV(csvText);
+
+            // Сравнение по названию и исполнителю
+            const matches = this.allTracks.filter(track => {
+                return userTracks.some(userTrack =>
+                    userTrack.name.trim().toLowerCase() === track.name.trim().toLowerCase() &&
+                    userTrack.artist.trim().toLowerCase() === track.artist.trim().toLowerCase()
+                );
+            });
+
+            // Подсветка совпадений
+            this.highlightMatches(matches);
+            this.matchedTracks = matches;
+            document.getElementById('show-matches-btn').style.display = 'inline-block';
+            this.showMatchNotification(matches.length);
+        };
+        reader.readAsText(file);
+    }
+
+    highlightMatches(matches) {
+        const container = document.getElementById('tracks-container');
+        const items = container.querySelectorAll('.track-item, .embed-card, .no-embed');
+        items.forEach(el => {
+            const name = el.querySelector('.track-name')?.textContent?.trim().toLowerCase();
+            const artist = el.querySelector('.artist-name')?.textContent?.trim().toLowerCase();
+            const isMatch = matches.some(m => 
+                m.name.trim().toLowerCase() === name &&
+                m.artist.trim().toLowerCase() === artist
+            );
+            if (isMatch) {
+                el.classList.add('match-highlight');
+            } else {
+                el.classList.remove('match-highlight');
+            }
+        });
+    }
+
+    toggleShowMatches() {
+        const btn = document.getElementById('show-matches-btn');
+        const showingOnly = btn.classList.toggle('active');
+        if (showingOnly) {
+            this.displayMusicTracks(this.matchedTracks || []);
+            btn.textContent = 'Показать все треки';
+        } else {
+            this.displayMusicTracks(this.allTracks);
+            btn.textContent = 'Показать только совпадения';
+        }
+
+        if (this.matchedTracks?.length) {
+            this.highlightMatches(this.matchedTracks);
+        }
     }
 
     // Функции для библиотеки
