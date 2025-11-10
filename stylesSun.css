@@ -1355,7 +1355,6 @@ a {
     }
 }
 
-/* Обновление цветов для светлой темы */
 body {
     background: linear-gradient(135deg, #f0f0f0, #e8e8e8);
     color: #333333;
@@ -1436,7 +1435,6 @@ input[type="text"]:focus {
     background: rgba(0, 0, 0, 0.2);
 }
 
-/* Обновление цветов для скроллбаров */
 ::-webkit-scrollbar-track {
     background: rgba(212, 212, 212, 0.5);
 }
@@ -1618,6 +1616,14 @@ input[type="text"]:focus {
     background: rgba(0, 0, 0, 0.1);
 }
 
+html {
+    ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+html::-webkit-scrollbar { 
+    display: none;
+}
 
 div[data-tab="library"] {
     display: none;

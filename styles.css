@@ -1587,6 +1587,15 @@ a {
     background: rgba(0, 0, 0, 0.1);
 }
 
+html {
+    ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+html::-webkit-scrollbar { 
+    display: none;
+}
+
 
 div[data-tab="library"] {
     display: none;
