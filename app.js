@@ -550,37 +550,6 @@ class RatingsApp {
         });
     }
 
-    loadTrackCovers() {
-	    document.querySelectorAll('.track-cover[data-track-id]').forEach(img => {
-	        const trackId = img.getAttribute('data-track-id');
-	        this.setTrackCover(img, trackId);
-	    });
-	}
-
-	setTrackCover(imgElement, trackId) {
-	    const primarySrc = `covers/${trackId}.jpg`;
-	    const fallbackSrc = `covers2/${trackId}.jpg`;
-	    const placeholder = 'placeholder-cover.jpg';
-	    
-	    // Создаем тестовое изображение для проверки
-	    const testImg = new Image();
-	    testImg.onload = () => {
-	        imgElement.src = primarySrc; // Файл существует
-	    };
-	    testImg.onerror = () => {
-	        // Пробуем fallback
-	        const testImg2 = new Image();
-	        testImg2.onload = () => {
-	            imgElement.src = fallbackSrc;
-	        };
-	        testImg2.onerror = () => {
-	            imgElement.src = placeholder;
-	        };
-	        testImg2.src = fallbackSrc;
-	    };
-	    testImg.src = primarySrc;
-	}
-
     displayTracksAsList(tracksToDisplay) {
         const container = document.getElementById('tracks-container');
         container.innerHTML = '';
@@ -599,29 +568,37 @@ class RatingsApp {
             trackItem.className = 'track-item list-item';
             
             trackItem.innerHTML = `
-                <div class="track-content">
-                	<img src="" class="track-cover" data-track-id="${track.trackId}">
-                    <div class="track-info">
-                        <div class="track-name" title="${track.name}">${track.name}</div>
-                        <div class="artist-name" title="${track.artist}">${track.artist}</div>
-                        <div class="album-name" title="${track.album}">${track.album}</div>
-                    </div>
-                    <div class="track-meta">
-                        <div class="popularity">${track.popularity}%</div>
-                        <div class="duration">${track.formattedDuration}</div>
-                        ${track.explicit ? '<div class="explicit">E</div>' : ''}
-                    </div>
-                    <div class="track-actions">
-                        <a href="${track.url}" target="_blank" class="spotify-link-btn">Открыть в Spotify</a>
-                    </div>
-                </div>
-            `;
+			    <div class="track-content">
+			        <img src="covers/${track.trackId}.jpg" 
+			             class="track-cover"
+			             onerror="
+			                 if (this.src.includes('covers/')) {
+			                     this.src = 'covers2/${track.trackId}.jpg';
+			                 } else if (this.src.includes('covers2/')) {
+			                     this.src = 'placeholder-cover.jpg';
+			                     this.onerror = null;
+			                 }
+			             ">
+			        <div class="track-info">
+			            <div class="track-name" title="${track.name}">${track.name}</div>
+			            <div class="artist-name" title="${track.artist}">${track.artist}</div>
+			            <div class="album-name" title="${track.album}">${track.album}</div>
+			        </div>
+			        <div class="track-meta">
+			            <div class="popularity">${track.popularity}%</div>
+			            <div class="duration">${track.formattedDuration}</div>
+			            ${track.explicit ? '<div class="explicit">E</div>' : ''}
+			        </div>
+			        <div class="track-actions">
+			            <a href="${track.url}" target="_blank" class="spotify-link-btn">Открыть в Spotify</a>
+			        </div>
+			    </div>
+			`;
             
             tracksList.appendChild(trackItem);
         });
 
         container.appendChild(tracksList);
-        this.loadTrackCovers();
     }
 
     toggleMusicView() {
