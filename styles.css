@@ -491,6 +491,14 @@ input[type="text"]:focus {
     align-items: center;
 }
 
+.track-cover {
+    width: 56px;
+    height: 56px;
+    border-radius: 6px;
+    object-fit: cover;
+    margin-right: 12px;
+}
+
 .popularity {
     background: #50fa7b;
     color: #282a36;
