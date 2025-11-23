@@ -575,7 +575,7 @@ class RatingsApp {
 			                 if (this.src.includes('covers/')) {
 			                     this.src = 'covers2/${track.trackId}.jpg';
 			                 } else if (this.src.includes('covers2/')) {
-			                     this.src = 'placeholder-cover.gif';
+			                     this.src = 'placeholder-cover.png';
 			                     this.onerror = null;
 			                 }
 			             ">
