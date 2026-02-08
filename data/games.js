@@ -1,6 +1,14 @@
 // data/games.js
 window.gamesData = [
   {
+    "name": "Grounded",
+    "rating": "5/10",
+    "date": "22.01.2026",
+    "genre": "Выживание",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/962130/header.jpg",
+    "description": "Признаюсь, не прошёл, дропнул. На первых часах игры. Хз, в теории хороший выживач, но для меня он наверное будет интересен только в коопе. А пока что дроп, задушился."
+  },
+  {
     "name": "Hytale",
     "rating": "10/10",
     "date": "20.01.2026",
