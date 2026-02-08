@@ -770,20 +770,6 @@ class RatingsApp {
             <div class="writing-info">
                 <div class="writing-name" title="${writing.name}">${writing.name}</div>
                 <div class="writing-description">${writing.description}</div>
-                
-                <!-- Кнопка скачивания в правом нижнем углу карточки -->
-                <div class="writing-actions">
-                    <a href="${writing.url}" target="_blank" download class="download-corner-btn" onclick="event.stopPropagation()" title="Открыть сайт">
-                        <svg width="18" height="18" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M14 3h7v7"></path>
-                            <path d="M10 14L21 3"></path>
-                            <path d="M21 14v7h-7"></path>
-                            <path d="M3 10v11h11"></path>
-                        </svg>
-                    </a>
-                </div>
             </div>
         </div>
     `).join('');
