@@ -1631,10 +1631,6 @@ html::-webkit-scrollbar {
     display: none;
 }
 
-div[data-tab="library"] {
-    display: none;
-}
-
 .hidden-section {
     display: none;
 }
