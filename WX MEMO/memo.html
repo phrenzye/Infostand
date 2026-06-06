@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memory Checker</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#111;
+    color:white;
+    text-align:center;
+    margin:0;
+    padding:20px;
+}
+
+h1{
+    margin-bottom:20px;
+}
+
+#frameCanvas{
+    border:2px solid #444;
+    max-width:90vw;
+    max-height:60vh;
+    margin-bottom:20px;
+}
+
+.controls{
+    margin:20px;
+}
+
+button{
+    padding:12px 24px;
+    font-size:18px;
+    margin:5px;
+    cursor:pointer;
+}
+
+#results{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px;
+    margin-top:30px;
+}
+
+.result-item{
+    border:1px solid #444;
+    padding:5px;
+    background:#222;
+}
+
+.result-item img{
+    width:180px;
+    display:block;
+}
+</style>
+</head>
+<body>
+
+<h1>Memory Checker</h1>
+
+<div style="margin-top:20px">
+    <canvas id="frameCanvas"></canvas>
+</div>
+
+<h2 id="frameInfo"></h2>
+
+<div class="controls">
+    <button id="foundBtn">✔ Найден</button>
+    <button id="skipBtn">✖ Пропустить</button>
+    <button id="finishBtn">⛔ Завершить сейчас</button>
+</div>
+
+<div id="restartContainer" style="display:none;">
+    <button id="restartBtn">🔄 Начать заново</button>
+</div>
+
+<div id="progress"></div>
+
+<h2>Найденные кадры</h2>
+<div id="results"></div>
+
+<script>
+
+const ROWS = 6;
+const COLS = 9;
+const CELL_PADDING = 8;
+
+let cells = [];
+let currentIndex = 0;
+let foundIds = [];
+let found = [];
+
+const canvas = document.getElementById("frameCanvas");
+const ctx = canvas.getContext("2d");
+
+const frameInfo = document.getElementById("frameInfo");
+const progress = document.getElementById("progress");
+
+window.addEventListener("load", loadDefaultImage);
+
+function loadDefaultImage(){
+
+    const img = new Image();
+
+    img.onload = () => {
+
+        cells = splitGrid(img);
+
+        currentIndex = 0;
+        found = [];
+
+        showCurrentCell();
+    };
+
+    img.src = "memory_sheet.jpg";
+}
+
+function splitGrid(img){
+
+    const result = [];
+
+    const cellW = img.width / COLS;
+    const cellH = img.height / ROWS;
+
+    let id = 1;
+
+    for(let row=0; row<ROWS; row++){
+
+        for(let col=0; col<COLS; col++){
+
+            const x =
+                col * cellW + CELL_PADDING;
+
+            const y =
+                row * cellH + CELL_PADDING;
+
+            const w =
+                cellW - CELL_PADDING * 2;
+
+            const h =
+                cellH - CELL_PADDING * 2;
+
+            result.push({
+                id,
+                x,
+                y,
+                w,
+                h,
+                source: img
+            });
+
+            id++;
+        }
+    }
+
+    return result;
+}
+
+function showCurrentCell(){
+
+    if(currentIndex >= cells.length){
+        finish();
+        return;
+    }
+
+    const cell = cells[currentIndex];
+
+    canvas.width = cell.w;
+    canvas.height = cell.h;
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    ctx.drawImage(
+        cell.source,
+        cell.x,
+        cell.y,
+        cell.w,
+        cell.h,
+        0,
+        0,
+        cell.w,
+        cell.h
+    );
+
+    frameInfo.textContent =
+        `Кадр #${cell.id}`;
+
+    progress.textContent =
+        `${currentIndex + 1} / ${cells.length}`;
+}
+
+function markFound(){
+
+    found.push(cells[currentIndex]);
+
+    currentIndex++;
+
+    showCurrentCell();
+}
+
+function skipFrame(){
+
+    currentIndex++;
+
+    showCurrentCell();
+}
+
+document
+.getElementById("foundBtn")
+.addEventListener("click", markFound);
+
+document
+.getElementById("skipBtn")
+.addEventListener("click", skipFrame);
+
+document
+.getElementById("finishBtn")
+.addEventListener("click", finish);
+
+function restart(){
+
+    foundIds = [];
+
+    currentIndex = 0;
+
+    document
+        .getElementById("results")
+        .innerHTML = "";
+
+    document
+        .getElementById("restartContainer")
+        .style.display = "none";
+
+    document
+        .getElementById("foundBtn")
+        .disabled = false;
+
+    document
+        .getElementById("skipBtn")
+        .disabled = false;
+
+    document
+        .getElementById("finishBtn")
+        .disabled = false;
+
+    showCurrentCell();
+}
+
+document
+.getElementById("restartBtn")
+.addEventListener("click", restart);
+
+document.addEventListener("keydown", e => {
+
+    if(e.code === "Space"){
+        e.preventDefault();
+        markFound();
+    }
+
+    if(e.key === "n" || e.key === "N"){
+        skipFrame();
+    }
+});
+
+function finish(){
+
+    document.getElementById("foundBtn").disabled = true;
+    document.getElementById("skipBtn").disabled = true;
+    document.getElementById("finishBtn").disabled = true;
+
+    frameInfo.textContent = "Проверка завершена";
+
+    foundIds.sort((a,b) => a-b);
+
+    progress.textContent =
+        `Найдено кадров: ${foundIds.length}`;
+
+    renderResults();
+
+    document
+        .getElementById("restartContainer")
+        .style.display = "block";
+}
+
+function renderResults() {
+
+    const results =
+        document.getElementById("results");
+
+    results.innerHTML = "";
+
+    if(found.length === 0){
+
+        results.innerHTML =
+            "<p>Кадры не найдены</p>";
+
+        return;
+    }
+
+    const sortedFound =
+        [...found].sort((a,b) => a.id - b.id);
+
+    const numbers =
+        document.createElement("div");
+
+    numbers.style.width = "100%";
+    numbers.style.marginBottom = "20px";
+    numbers.style.fontSize = "20px";
+
+    numbers.innerHTML =
+        "<b>Найденные кадры:</b><br>" +
+        sortedFound.map(x => x.id).join(", ");
+
+    results.appendChild(numbers);
+
+    sortedFound.forEach(cell => {
+
+        const tempCanvas =
+            document.createElement("canvas");
+
+        tempCanvas.width = cell.w;
+        tempCanvas.height = cell.h;
+
+        const tempCtx =
+            tempCanvas.getContext("2d");
+
+        tempCtx.drawImage(
+            cell.source,
+            cell.x,
+            cell.y,
+            cell.w,
+            cell.h,
+            0,
+            0,
+            cell.w,
+            cell.h
+        );
+
+        const div =
+            document.createElement("div");
+
+        div.className = "result-item";
+
+        const title =
+            document.createElement("div");
+
+        title.innerHTML =
+            `<b>#${cell.id}</b>`;
+
+        const img =
+            document.createElement("img");
+
+        img.src = tempCanvas.toDataURL("image/png");
+
+        div.appendChild(title);
+        div.appendChild(img);
+
+        results.appendChild(div);
+    });
+}
+
+</script>
+
+</body>
+</html>
