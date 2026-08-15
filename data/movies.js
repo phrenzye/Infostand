@@ -1,6 +1,102 @@
 // data/movies.js
 window.moviesData = [
   {
+    "name": "Сквозь снег",
+    "rating": "8/10",
+    "date": "16.08.2026",
+    "genre": "Фантастика",
+    "image": "https://avatars.mds.yandex.net/get-kinopoisk-image/1599028/3a668f32-9db5-4137-abfd-03aa0bb85b6d/1920x",
+    "description": "Интересное восстание и не менее интересный его исход, ведь все люди наконец стали равны. Хотя конечно на самом деле, фильм смотрится весьма нудно. Скорее всего, если не ищешь какого-то сильного экшена, а просто более менее чилового фильма про неравенство, то думаю зайдет"
+  },
+  {
+    "name": "Создатель",
+    "rating": "9/10",
+    "date": "15.08.2026",
+    "genre": "Фантастика",
+    "image": "https://avatars.mds.yandex.net/get-kinopoisk-image/9784475/b6408c92-d5d8-40ac-a551-eed9bad9a2c3/1920x",
+    "description": "Чиловый фильмец, который раскрывается где-то в +-середине, до последних 50-60 минут лично мне немножко скучновато было. А так вообще фильм хороший и очень красивый, финал так вообще радость для глаз"
+  },
+  {
+    "name": "Район №9",
+    "rating": "9/10",
+    "date": "14.08.2026",
+    "genre": "Фантастика",
+    "image": "https://kinopoisk-ru.clstorage.net/s17lk0083/964734VluB/bZRcQtDutJXG0qZb35BI0BkbrOUNy-rYTgNIgUGNqcbyIaxAYn7wKIbEvZEZs5BTP6v7s_bualJboBOEn0gSzS_GHBCP_6Oaw4zuR4zLGddZB_XhTdGijAMcE5BwvZjo2Q2IP0JU2AGUnPuKS-PODnfrofmu-H5EMsYe0MMKGIZZr1tQ5OT1k_jtyWPrq27FNlaM6jaX6v5XTFOxX5ey0PYalB95WOE2jbrH6VPI5gpoz4P9jb9Vcj_vc9HYPwaaf79jTeHrzKjhw-dEx49o0SB7jvgdivXvVnRkhGqpu-jeI5MaUmXwA5qJxchQ5s0Qfsa4x4KMVXkL_3Ty3R0yr22EQ3HS2NOu0PfuSvqIVMwbeInqKbDkyEpJRYdniqra0jm2OHt18BeZk_n3TvnxNGPSnc-zpkN3Pd9u9ukMGbFLsVxC29bDgvTC0Vj1nFz2KE2OzjqL3fBUfVOvd5eu4sIWij1_d9MKlIbm0VX5xDFS4rncoLVPSCnrVersAQWta6B7Zvbk-bDw4-ZU-I9E-hdXr-EqgMb1XUdWhkS3vOPDHqwdYVHlHJKP1PxCyesSbtSs_5WyXWY44U3J_jAegWGAeVLH8va38fvuSPiKT_4PRarTMp7m80xecolIpKvlyySIBnpG3DaypuDKQunxGV7xocWOpGVzCfpL6so2Bol9mU1h2-rsve_b5EzTlEPRMl6a0RKu6vhbfHCJeY-R-tQzsSRNdP8FjJz6xXDDwxl-xYvglIxGVALoVs_YASClSrdlVuH19JrrwP9754hbwwhPiuM8i-LZXU96v3akmuTCKo0ve3z3Bbqp4dVM2NolZcmu3qO1RH4G2nrbzRQhkH62R1Hs8uiL6MrncuquSPEtQanRA6vc9WBsToFKi7DI9SOBBUN_5ie6kdjIWsvmKFH9gPKqlGRaBtZu2N4RHKtPuUJQ9s35t_fJ_nHniGndKFmN2BiRytlsZnqHSrS-_9c4jDlpX-Anlp3h1Ur4-hF1zp3mqrRHXzjDZsXDEh-2fbxLavPT_I_S7NlM-Jp4wCBtpdc_g8nkfFhupUGamtzQOZcnXl3pDKqa5chz0NMgbsGM4ImlXHwr_V_Q-AslpG2YfUjRz9SO1_XOUdyqXf8kQLXHPpLl1XJZbZhqlpve7yegP3N64QeJm83zV8PzG1DWr_CMhFVhBeFG8-oLNbdjgnlLxvXXttbp407wm1nHJmOQ1CyjyN5JQXOpV6SY2fQotSdHZfoBkaTCyk3b2DJkzKTLtpNZZD_uf-3nNRumb7J7U9j18b7rxcBJx5hDzStzqs4WkO7fW39ZpXaRi9ndPYErbWf5KaC51uZu-sERZees26SvS3gG12by8RwEiVWiQnDt2vWd-sr8UsaLQ947R7PoCrPo9Vl5aJBGurTn7werK1N64gONrOHebcHhN17xnu-HrFZ_N9xU9883M6xBkmRx2Pviqtbsz1PphGvMEGGa7jaJ--1sZnGQfpOJytExkid-S-EqlaT9yUnEzxhTzIPtpLhpdDz_UPrQMy60U75qWfL74rXr1OxS7JNK3wV6iPMtns_kfXpnhnmzodPoOpErenTYBpmn2cBtx-oAScuA66CZb0kG90TuxBUnlHWAa3rt5MmS7NniYfC2W-YxWpfpNofk33hGToZ7s6HM8iSxGW11-TuEv_bcSt7KO2D1gu6Wp0h5L9Fo2dAKJLhqv0RU0vHTkvrV_03ZhFvkLmC36ii36c9zeUClXaO76_8liQ5vV_YZmYDP7WnT9yltxa3HpqNHYDvAUNHrGx61eKVsaOfb1onr6fxb0J1g3y50t_M4jvvSfWR0hWmwkPjvPa09SXbgCpW-6OJNwMUPQeir3IOMamsV23_v8BIcg0qbREzTxM6qweTqQea_Q-IZQ7TZGJf90ltqdoxploPR4TirIHhg-C2JpMjeT_LRC2rWhNm2mXx2Hf9wxvsAE5dpmG1b0fHOm8_Xz2HwtXbtCGOg6xyBwdROb1mlS5Wxy90RsyVAatYlsKHgzlT68SRozpvkgrhYXR__Z_XuLAWDToJ6adLf1JPV9cdazKdp4RRToe8KocXcSk9tsk6Yj9n9G6orQFXjDqGd2tZzxvQHZsG-x5K9WUkfwU3S8SgFlHSzS23b5Pi32PbnRdOVeO8PXYbCP6fZ_nxecad9jpPQ1xqhBUhgyRWNoN_3U9vMEWr3rMywkkl2H_FI3uM3O4NTskREy8vLm9bbz1PXtkrvOGOs6AiS3d59d1Cpfqy3_-wariVeS_kDqJjC0kfBzTN-8qDFp4xuegLWcPHCCASIS4Ztd-_41qr2x-Jy-4565ithtdQ4gPf0alh6umSLgf3rApYDU1DCF6uY5eBk-u40UO-qwJyiX1gd2l3l5i0stHaffEzU9P-00OTycPmcQsYuRojlEpD1zF1ISqtLuq7cwxmvHmFkwRuThOLKdev1Kn_LssKDo2FbIfdM1uApE6VThGFM49Xzv8bY-1X_p0fSC2Gv1R-ixfpzZG-ETYyR4d0nqT9xZfYGjJvHzXXC9Slp9rzrg5N7WSPjdt3LOyWsb4ZnW_Hp9Y7jw8Nz-rxcwBVcg_kwlsT3aEt1nGiYk9nsFagmbVL5I4Cb4OhZ7O4FdtOp2aSjaXMm9G3OxBc_lEuQQ0Hj_NGo9PjQddqVXNgsYpDZLpHK1EthZK1utp_B_yS1O3FDwjePrenDd_n5Dk38pP6AtXh7Bvp06OYVAbVvhXtG7NjWmszo4G3cj13HD1600hGhz_t-RXeSR623_-s9gj1ydsUKhar49Wr9yCJg1KTuo7x6fyTQSObgDye0U7ZYU_b-6qD62PtA6KpB7SV_teE2lcbxeWxQsUeRnu_NB60IWVDkLJqd-e9N6dggSema74m8bXwO3Ezy3zI1uFWUUVrm1cu65fjabNWRdd8jeID5NYbC71FUbp9EqKnkyhOfGE5dxC6Gkvn8be3WC2bXrMiKonR_JO4",
+    "description": "А почему, когда начались убийства людей, по кораблю не прилетел, скажем, орешник? Наверное потому что у омериконцев нет орешника. Ну а вообще, фильм прикольный, по сути выполнен в стиле документалки, немножко так. Главный герой большую часть фильма ведет себя очень тупо, иногда эгоистично и трусливо, но ближе к концу вроде как исправляется. История пока что не завершена, как по мне, так что ждем \"Район №10\""
+  },
+  {
+    "name": "Обливион",
+    "rating": "10/10",
+    "date": "14.08.2026",
+    "genre": "Фантастика",
+    "image": "https://avatars.mds.yandex.net/get-kinopoisk-image/1900788/80d4517b-1c0a-496c-af6a-6dc8865d426f/1920x",
+    "description": "Фильм про самую большую наебку человечества с очень красивым финалом. Где-то в середине заставляет немножко прихереть, потом еще раз и еще. Но правда в финальной сцене конечно, нет какой-то радости за персонажей, учитывая увиденное ранее"
+  },
+  {
+    "name": "Время",
+    "rating": "10/10",
+    "date": "13.08.2026",
+    "genre": "Фантастика",
+    "image": "https://avatars.mds.yandex.net/get-kinopoisk-image/1900788/e5578ad2-5a5a-43bb-bfaf-60ed63daed2e/orig",
+    "description": "Крайне годно. Фильм про Бони и Клайда, которые ведут себя как Робин Гуд и от этого фильм становится даже лучше. Из-за того что фильм был снят на какую-то стерильную цифровую камеру, может сложится впечатление что его прогнали через ИИ-апскейл, но это не так, в связи с новыми технологиями в наше время, восприятие такой картинки немножко меняется, но со временем глаз вроде привыкает. Вот такая вот дополнительная фича фильма про время, связанная со временем :D"
+  },
+  {
+    "name": "Эквилибриум",
+    "rating": "10/10",
+    "date": "12.08.2026",
+    "genre": "Фантастика",
+    "image": "https://avatars.mds.yandex.net/get-kinopoisk-image/1900788/81852081-e0b8-4769-9756-45bbdc0bda1a/1920x",
+    "description": "Фильм, сюжет которого напоминает игру We Happy Few. Главный герой какой-то супер-ниндзя с пистолетом, будто бы это матрица, но это не отменяет того факта, что сам фильм просто бомба. Возможно он может даже немножко изменить взгляд на мир, но не факт."
+  },
+  {
+    "name": "Элизиум: Рай не на Земле",
+    "rating": "9/10",
+    "date": "12.08.2026",
+    "genre": "Фантастика",
+    "image": "https://avatars.mds.yandex.net/get-kinopoisk-image/1599028/7c2a049c-ef97-4077-a55f-b013ea55d20f/1920x",
+    "description": "Чуть менее киберпанковский киберпанк, но с антиутопией в неравестве людей и элит. Главный герой по сути живая флешка, с информцией, которая хрен пойми насколько гениальным протоколом защищена. Этот протокол срабатывает тогда, когда он и не нужен. Но в целом то фильм прикольный"
+  },
+  {
+    "name": "Апгрейд",
+    "rating": "10/10",
+    "date": "12.08.2026",
+    "genre": "Фантастика",
+    "image": "https://avatars.mds.yandex.net/get-kinopoisk-image/1900788/c9736ac7-ce96-43c7-a477-41df0888e505/1920x",
+    "description": "Прям очень хороший фильм, особенно понравится тем, кому нравится киберпанк. Можно наверное даже охарактеризовать это как фильм про Дэвида Мартинеза, но без киберпсихоза (почти). Даже жаль, что история завершена и продолжения не будет, хотя можно было бы сделать что-то типа того, как это было в играх Prototype и Prototype 2"
+  },
+  {
+    "name": "Веном: Последний танец",
+    "rating": "10/10",
+    "date": "11.08.2026",
+    "genre": "Фантастика",
+    "image": "https://avatars.mds.yandex.net/get-kinopoisk-image/4486362/52266977-0200-471c-bf45-832d746fa41a/1920x",
+    "description": "Чтоооож, фильм то конечно классный прикольный все дела, но вот финал че-то как-то не оч. Да он конечно эмоции вызывает и он прямо таки очень хорош на самом деле, но я бы закрыл глаза на любую сюжетную дыру, если бы финал был слегка иным."
+  },
+  {
+    "name": "Веном 2",
+    "rating": "9/10",
+    "date": "10.08.2026",
+    "genre": "Фантастика",
+    "image": "https://avatars.mds.yandex.net/get-kinopoisk-image/1600647/dad6b03e-9c74-4452-84ac-a42a3365ac6d/1920x",
+    "description": "По сюжетной части есть пара вопросов, например, как из одной капельки крови, появился новый симбиот, который еще и сильнее Венома (в теории). Но не смотря на это, фильм все еще довольно прикольный, имя второго симбиота так вообще смакота."
+  },
+  {
+    "name": "Веном",
+    "rating": "10/10",
+    "date": "10.08.2026",
+    "genre": "Фантастика",
+    "image": "https://avatars.mds.yandex.net/get-kinopoisk-image/1777765/f7250684-498a-4bfe-82b8-dcbdb7e267fa/1920x",
+    "description": "Мега крутейший фильм про дружбу человека и инопланетного существа. В финале заставили покачаться на качельках эмоциональных, но к сожалению смотрю не первый раз, так что не раскачали в этот раз. Кстати, был какой-то фильм с человеком пауком и веномом, но я если честно это не считаю каноном, имхо."
+  },
+  {
+    "name": "Бегущий в лабиринте",
+    "rating": "10/10",
+    "date": "20.05.2026",
+    "genre": "Фантастика",
+    "image": "https://avatars.mds.yandex.net/get-kinopoisk-image/1704946/51abd2eb-64a0-49eb-8f9b-38e972eaf771/1920x",
+    "description": "Не смотря на то что уже не первый раз смотрю этот фильм, всё равно идут мурашки в некоторых моментах. Не очень конечно понятен момент, что тип, только только попавший в лабиринт, уже за пару дней находит способ сбежать, ну видимо гений хз. Чака еще жалко конечно, хотя если верить женщине из телевизора, то он бы в любом случае не нашёл то чего искал."
+  },
+  {
     "name": "Zомбилэнд: Контрольный выстрел",
     "rating": "9/10",
     "date": "15.05.2026",
