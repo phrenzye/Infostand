@@ -7,6 +7,16 @@ class RatingsApp {
         this.currentMusicView = 'list';
         this.allTracks = [];
         this.isDarkTheme = true;
+        this.previewAudio = new Audio();
+        this.currentPreviewButton = null;
+        this.currentArtworkIndex = null;
+        this.previewAudio.addEventListener('ended', () => {
+            if (this.currentPreviewButton) {
+                this.currentPreviewButton.innerHTML = '<i data-lucide="play"></i>';
+                lucide.createIcons();
+                this.currentPreviewButton = null;
+            }
+        });
         this.init();
     }
 
@@ -14,8 +24,6 @@ class RatingsApp {
         this.setupEventListeners();
         this.handleHashNavigation();
         this.initTabIndicator();
-        this.setupBlinkingTitle();
-        this.setupWritingsModal();
         this.loadThemePreference();
     }
 
@@ -26,32 +34,18 @@ class RatingsApp {
     }
 
     applyTheme() {
-        const currentStylesheet = document.getElementById('theme-stylesheet');
+        const theme = this.isDarkTheme ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', theme);
         const favicon = document.querySelector('link[rel="icon"]');
-        const heroAvatar = document.querySelector('.hero-avatar img');
-        const siteLogo = document.querySelector('.site-logo'); // Добавляем эту строку
-        
-        if (this.isDarkTheme) {
-            // Переключаем на темную тему
-            currentStylesheet.href = 'styles.css?v=' + new Date().getTime();
-            favicon.href = 'favicon.png';
-            if (heroAvatar) {
-                heroAvatar.src = 'rose.png';
-            }
-            if (siteLogo) {
-                siteLogo.src = 'favicon.png'; // Меняем логотип в хедере
-            }
-        } else {
-            // Переключаем на светлую тему
-            currentStylesheet.href = 'stylesSun.css?v=' + new Date().getTime();
-            favicon.href = 'faviconsun.png';
-            if (heroAvatar) {
-                heroAvatar.src = 'rosesun.png';
-            }
-            if (siteLogo) {
-                siteLogo.src = 'faviconsun.png'; // Меняем логотип в хедере
-            }
+        if (favicon) {
+            favicon.href = this.isDarkTheme ? 'favicon.png' : 'faviconsun.png';
         }
+        // Аватары переключаются через CSS (.theme-dark-only / .theme-light-only)
+        // если в HTML два img; иначе fallback:
+        document.querySelectorAll('.hero-avatar img').forEach((img, i) => {
+            if (img.classList.contains('theme-dark-only') || img.classList.contains('theme-light-only')) return;
+            img.src = this.isDarkTheme ? 'rose.png' : 'rosesun.png';
+        });
     }
 
     saveThemePreference() {
@@ -62,24 +56,27 @@ class RatingsApp {
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme) {
             this.isDarkTheme = savedTheme === 'dark';
+        } else {
+            this.isDarkTheme = true;
         }
         this.applyTheme();
     }
 
     setupEventListeners() {
-        document.querySelector('.site-logo').addEventListener('click', () => {
+        document.getElementById('theme-toggle')?.addEventListener('click', () => {
             this.toggleTheme();
         });
-        // Обработчики табов
-        document.querySelectorAll('.tab').forEach(tab => {
+        // Обработчики табов (sidebar + любые .tab / .nav-btn)
+        document.querySelectorAll('.tab, .nav-btn[data-tab]').forEach(tab => {
             tab.addEventListener('click', (e) => {
-                const tabName = e.target.getAttribute('data-tab');
-                this.switchTab(tabName);
+                const el = e.currentTarget;
+                const tabName = el.getAttribute('data-tab');
+                if (tabName) this.switchTab(tabName);
             });
         });
 
         // Обработчики сортировки для игр, фильмов, сериалов, аниме
-        ['games', 'movies', 'series', 'anime', 'books'].forEach(type => { // Добавили 'anime'
+        ['games', 'movies', 'series', 'anime'].forEach(type => { // Добавили 'anime'
             document.getElementById(`sort-name-${type}`)?.addEventListener('click', () => {
                 this.setSort('name', type);
             });
@@ -92,7 +89,7 @@ class RatingsApp {
         });
 
         // Обработчики поиска для игр, фильмов, сериалов, аниме
-        ['games', 'movies', 'series', 'anime', 'books'].forEach(type => { // Добавили 'anime'
+        ['games', 'movies', 'series', 'anime'].forEach(type => { // Добавили 'anime'
             document.getElementById(`search-input-${type}`)?.addEventListener('input', (e) => {
                 this.searchQuery = e.target.value.toLowerCase();
                 this.filterAndDisplayContent(type);
@@ -183,15 +180,41 @@ class RatingsApp {
             this.closeVpnWarning();
         });
 
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', (e) => {
-                const tabName = e.target.getAttribute('data-tab');
-                this.switchTab(tabName);
+        window.addEventListener('hashchange', () => {
+            this.handleHashNavigation();
+        });
+
+        document.addEventListener('click', (e) => {
+            const button = e.target.closest('.release-play-btn');
+
+            if (!button) return;
+
+            const wrapper = button.closest('.release-cover-wrapper');
+            const preview = wrapper?.dataset.preview;
+
+            if (!preview) return;
+
+            this.toggleReleasePreview(preview, button);
+        });
+
+        document.querySelectorAll('.about-project[data-tab]').forEach(project => {
+            project.addEventListener('click', () => {
+                const tab = project.dataset.tab;
+
+                if (tab) {
+                    this.switchTab(tab);
+                }
             });
         });
 
-        window.addEventListener('hashchange', () => {
-            this.handleHashNavigation();
+        document.querySelector('.artwork-lightbox-close')?.addEventListener('click', () => {
+            this.closeArtwork();
+        });
+
+        document.getElementById('artwork-lightbox')?.addEventListener('click', (e) => {
+            if (e.target.id === 'artwork-lightbox') {
+                this.closeArtwork();
+            }
         });
     }
 
@@ -203,14 +226,13 @@ class RatingsApp {
             // Если хеш соответствует существующей вкладке, переключаемся на неё
             this.switchTab(hash);
         } else {
-            // Иначе загружаем вкладку по умолчанию
-            this.loadContent('about');
+            this.switchTab('about');
         }
     }
 
     // Метод для проверки валидности имени вкладки
     isValidTab(tabName) {
-        const validTabs = ['about', 'games', 'movies', 'series', 'anime', 'music', 'books', 'library'];
+        const validTabs = ['about', 'games', 'movies', 'series', 'anime', 'music', 'library', 'musician', 'artist'];
         return validTabs.includes(tabName);
     }
 
@@ -222,11 +244,12 @@ class RatingsApp {
         window.location.hash = tabName;
         
         // Обновляем активные табы
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab, .nav-btn[data-tab]').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
         
-        document.querySelector(`.tab[data-tab="${tabName}"]`).classList.add('active');
-        document.getElementById(`${tabName}-content`).classList.add('active');
+        document.querySelectorAll(`.tab[data-tab="${tabName}"], .nav-btn[data-tab="${tabName}"]`).forEach(el => el.classList.add('active'));
+        const panel = document.getElementById(`${tabName}-content`);
+        if (panel) panel.classList.add('active');
         
         this.updateTabIndicator();
 
@@ -235,12 +258,16 @@ class RatingsApp {
         });
         
         // Загружаем контент для соответствующей вкладки
-        if (['games', 'movies', 'series', 'anime', 'books'].includes(tabName)) {
+        if (['games', 'movies', 'series', 'anime'].includes(tabName)) {
             this.filterAndDisplayContent(tabName);
         } else if (tabName === 'music') {
             this.loadMusicData();
+        } else if (tabName === 'artist') {
+            this.displayArtworks();
         } else if (tabName === 'library') {
             this.displayWritings();
+        } else if (tabName === 'musician') {
+            this.displayReleases();
         }
     }
 
@@ -286,7 +313,6 @@ class RatingsApp {
             case 'movies': return window.moviesData || [];
             case 'series': return window.seriesData || [];
             case 'anime': return window.animeData || [];
-            case 'books': return window.booksData || []; 
             default: return [];
         }
     }
@@ -368,7 +394,209 @@ class RatingsApp {
         `).join('');
     }
 
+    // Рисование
+
+    displayArtworks() {
+        const container = document.getElementById('artworks-grid');
+
+        if (!container) return;
+
+        const artworks = window.artworksData || [];
+
+        if (artworks.length === 0) {
+            container.innerHTML = '<div class="no-results">Работ пока нет.</div>';
+            return;
+        }
+
+        container.innerHTML = artworks.map((artwork, index) => `
+            <article class="artwork-card" data-artwork-index="${index}">
+                <div class="artwork-image-wrapper">
+                    <div
+                        class="artwork-image-background"
+                        style="background-image: url('${artwork.image}')"
+                    ></div>
+
+                    <img
+                        src="${artwork.image}"
+                        alt="${artwork.title}"
+                        class="artwork-image"
+                        loading="lazy"
+                    >
+
+                    <div class="artwork-open-hint">
+                        <i data-lucide="maximize-2"></i>
+                    </div>
+                </div>
+
+                <div class="artwork-info">
+                    <span class="artwork-title">${artwork.title}</span>
+                    <span class="artwork-rating">${artwork.rating}</span>
+                </div>
+            </article>
+        `).join('');
+
+        lucide.createIcons();
+
+        container.querySelectorAll('.artwork-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const index = Number(card.dataset.artworkIndex);
+                this.openArtwork(index);
+            });
+        });
+    }
+
+    openArtwork(index) {
+        const artwork = window.artworksData?.[index];
+
+        if (!artwork) return;
+
+        this.currentArtworkIndex = index;
+
+        const lightbox = document.getElementById('artwork-lightbox');
+        const image = document.getElementById('artwork-lightbox-image');
+        const title = document.getElementById('artwork-lightbox-title');
+
+        image.src = artwork.image;
+        image.alt = artwork.title;
+
+        title.textContent = `${artwork.title} · ${artwork.rating}`;
+
+        lightbox.classList.add('active');
+        document.body.classList.add('lightbox-open');
+    }
+
+    closeArtwork() {
+        const lightbox = document.getElementById('artwork-lightbox');
+
+        lightbox.classList.remove('active');
+        document.body.classList.remove('lightbox-open');
+
+        this.currentArtworkIndex = null;
+    }
+
     // Музыкальные функции
+    displayReleases() {
+        const container = document.getElementById('releases-grid');
+
+        if (!container) return;
+
+        const releases = window.releasesData || [];
+
+        if (releases.length === 0) {
+            container.innerHTML = '<div class="no-results">Релизов пока нет.</div>';
+            return;
+        }
+
+        container.innerHTML = releases.map(release => `
+            <article class="release-card">
+
+                <div class="release-info">
+
+                    <div class="release-cover-wrapper" data-preview="${release.preview || ''}">
+                        <img
+                            src="${release.cover}"
+                            alt="${release.title}"
+                            class="release-cover"
+                            loading="lazy"
+                        >
+
+                        <div class="release-cover-overlay">
+                            <button class="release-play-btn" type="button" aria-label="Прослушать">
+                                <i data-lucide="play"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="release-meta">
+                        <h3>${release.title}</h3>
+
+                        <span>${release.genre}</span>
+                        <span>${release.type}</span>
+                        <span>${release.date}</span>
+                    </div>
+
+                </div>
+
+                <div class="release-tracks">
+
+                    <div class="release-tracks-title">
+                        Треклист
+                    </div>
+
+                    ${release.tracks.map((track, index) => `
+                        <div class="release-track">
+                            <span class="track-number">
+                                ${String(index + 1).padStart(2, '0')}
+                            </span>
+
+                            <span class="track-title">
+                                ${track.title}
+                            </span>
+
+                            <span class="track-duration">
+                                ${track.duration || ''}
+                            </span>
+                        </div>
+                    `).join('')}
+
+                    <div class="release-links">
+
+                        ${release.links.spotify ? `
+                            <a href="${release.links.spotify}" target="_blank" rel="noopener noreferrer">
+                                Spotify
+                            </a>
+                        ` : ''}
+
+                        ${release.links.youtube ? `
+                            <a href="${release.links.youtube}" target="_blank" rel="noopener noreferrer">
+                                YouTube
+                            </a>
+                        ` : ''}
+
+                        ${release.links.yandex ? `
+                            <a href="${release.links.yandex}" target="_blank" rel="noopener noreferrer">
+                                Яндекс Музыка
+                            </a>
+                        ` : ''}
+
+                    </div>
+
+                </div>
+
+            </article>
+        `).join('');
+    }
+
+    toggleReleasePreview(preview, button) {
+        if (this.currentPreviewButton === button) {
+            if (this.previewAudio.paused) {
+                this.previewAudio.play();
+                button.innerHTML = '<i data-lucide="pause"></i>';
+            } else {
+                this.previewAudio.pause();
+                button.innerHTML = '<i data-lucide="play"></i>';
+            }
+
+            lucide.createIcons();
+            return;
+        }
+
+        this.previewAudio.pause();
+        this.previewAudio.currentTime = 0;
+
+        if (this.currentPreviewButton) {
+            this.currentPreviewButton.innerHTML = '<i data-lucide="play"></i>';
+        }
+
+        this.previewAudio.src = preview;
+        this.currentPreviewButton = button;
+
+        this.previewAudio.play();
+
+        button.innerHTML = '<i data-lucide="pause"></i>';
+        lucide.createIcons();
+    }
+
     async loadMusicData() {
         const loadingMessage = document.getElementById('loading-message');
         if (loadingMessage) {
@@ -808,4 +1036,5 @@ class RatingsApp {
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
     new RatingsApp();
+    lucide.createIcons();
 });

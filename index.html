@@ -1,148 +1,227 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" data-theme="dark">
 <head>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8" />
-    <link id="theme-stylesheet" href="styles.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="favicon.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="favicon.png" type="image/x-icon">
-    <title>Phrenzye Infostand</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet" type="text/css" />
+    <title>Phrenzye.wav</title>
+    <script>
+    (function(){try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark')t='dark';document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();
+    </script>
 </head>
 <body>
-    <div class="container">
-        <header class="sticky-header">
-            <div class="header-content">
-                <div class="logo-section">
-                    <img src="favicon.png" alt="Logo" class="site-logo" style="cursor: pointer;">
-                </div>
-                
-                <nav class="nav-tabs">
-                    <div class="tab active" data-tab="about">ОБО МНЕ</div>
-                    <div class="tab" data-tab="games">ИГРЫ</div>
-                    <div class="tab" data-tab="movies">ФИЛЬМЫ</div>
-                    <div class="tab" data-tab="series">СЕРИАЛЫ</div>
-                    <div class="tab" data-tab="anime">АНИМЕ</div>
-                    <div class="tab" data-tab="music">МУЗЫКА</div>
-                    <div class="tab hidden-tab" data-tab="books">КНИГИ</div>
-                    <div class="tab" data-tab="library">БИБЛИОТЕКА</div>
-                </nav>
-            </div>
-        </header>
+    <aside class="sidebar" aria-label="Навигация">
+        <nav class="sidebar-nav-up">
+            <button type="button" class="nav-btn active" data-tab="about" title="Обо мне" aria-label="Обо мне">
+                <img src="logo.png" alt="Обо мне" class="nav-avatar">
+            </button>
 
+            <button type="button" class="nav-btn" data-tab="musician" title="Музыка" aria-label="Музыка">
+                <i data-lucide="audio-lines" class="nav-ico"></i>
+            </button>
+
+            <button type="button" class="nav-btn" data-tab="artist" title="Рисование" aria-label="Рисование">
+                <i data-lucide="pencil-sparkles" class="nav-ico"></i>
+            </button>
+
+            <button type="button" class="nav-btn" data-tab="library" title="Библиотека" aria-label="Библиотека">
+                <i data-lucide="library-big" class="nav-ico"></i>
+            </button>
+        </nav>
+        <nav class="sidebar-nav">
+            <button type="button" class="nav-btn" data-tab="games" title="Игры" aria-label="Игры">
+                <i data-lucide="gamepad-2" class="nav-ico"></i>
+            </button>
+
+            <button type="button" class="nav-btn" data-tab="movies" title="Фильмы" aria-label="Фильмы">
+                <i data-lucide="clapperboard" class="nav-ico"></i>
+            </button>
+
+            <button type="button" class="nav-btn" data-tab="series" title="Сериалы" aria-label="Сериалы">
+                <i data-lucide="tv" class="nav-ico"></i>
+            </button>
+
+            <button type="button" class="nav-btn" data-tab="anime" title="Аниме" aria-label="Аниме">
+                <i data-lucide="sparkles" class="nav-ico"></i>
+            </button>
+
+            <button type="button" class="nav-btn" data-tab="music" title="Плейлист" aria-label="Плейлист">
+                <i data-lucide="list-music" class="nav-ico"></i>
+            </button>
+
+        </nav>
+        <button type="button" class="theme-toggle" id="theme-toggle" title="Сменить тему" aria-label="Сменить тему">
+            <span class="icon-sun">☀</span>
+            <span class="icon-moon">☾</span>
+        </button>
+    </aside>
+    <div class="page">
         <main>
             <div class="content active" id="about-content">
 
-                <section class="hero-section">
-                    <div class="hero-background">
-                        <div class="hero-pattern"></div>
+                <section class="about-hero">
+
+                    <!-- <div class="about-avatar">
+                        <img src="rose.png" alt="Phrenzye">
+                    </div> -->
+
+                    <div class="about-identity">
+                        <h1>Phrenzye</h1>
+                        <p class="about-role">
+                            музыка · рисунки · тексты · немного всего остального
+                        </p>
                     </div>
-                    <div class="hero-content">
-                        <div class="hero-avatar">
-                            <img src="rose.png" alt="Phrenzye">
-                        </div>
-                        <h1 class="hero-title">Phrenzye</h1>
-                        <p class="hero-subtitle">INFP | Мечтатель & Создатель</p>
-                        <p class="hero-description">Добро пожаловать в недра верхнего интернета!<br>Здесь можно немного узнать обо мне, посмотреть моё мнение о играх, фильмах, сериалах и даже аниме. Также здесь можно посмотреть мой плейлист Spotify и, боже упаси, посмотреть что я пишу.</p>
-                        <div class="hero-scroll-indicator">
-                            <span>Листайте вниз</span>
-                            <div class="scroll-arrow"></div>
-                        </div>
-                    </div>
+
+                    <p class="about-intro">
+                        Здесь собраны мои музыкальные и визуальные проекты, тексты и другие эксперименты, а заодно всё то, что мне интересно в свободное время. Можно посмотреть мои оценки и отзывы на игры, фильмы и сериалы, заглянуть в мой Spotify-плейлист или загрузить свой трек-лист, чтобы узнать, насколько наши музыкальные вкусы совпадают. А может, и не совпадают.
+                    </p>
+
                 </section>
 
-                <div class="about-container">
-                    <section class="content-section hidden-section">
-                        <div class="content-wrapper">
-                            <div class="text-content">
-                                <h2 class="section-title">Тип личности</h2>
-                                <div class="section-text">
-                                    <p><strong>Тип личности:</strong> INFP-T (Посредник)<br><strong>Черты характера:</strong> Интровертный - 88%, Интуитивный - 77%, Эмоциональный - 51%, Гибкий - 56%, Неспокойный - 68%<br><strong>Роль:</strong> Дипломат<br><strong>Стратегия:</strong> Постоянное совершенствование</p>
-                                    <p>INFP (Посредник) - один из самых добрых, чувствительных и любопытных типов личности. Посредник - это кроткая душа, полная идеалистической энергии, однако он легко может почувствовать себя потерянным, когда его творческие устремления не приносят плодов.</p>
-                                </div>
-                            </div>
-                            <div class="image-content">
-                                <img src="images/infpt.jpg" alt="INFP-T тип личности" class="section-image">
-                            </div>
-                        </div>
-                    </section>
 
-                    <section class="content-section">
-                        <div class="content-wrapper">
-                            <div class="text-content">
-                                <h2 class="section-title">Хобби и увлечения</h2>
-                                <div class="section-text">
-                                    <p>Занимаюсь писательством, иногда кодингом, когда есть вдохновение. Правда конечно, уже 2 года профессионально просиживаю жопу и ниче не делаю. С недавних пор, стараюсь вернуться к писательству. Ещё фоткаться люблю, но поскольку я не особо фотогеничный, да и фоткаю хреново, мало какие идеи воплощаются в реальность.</p>
-                                    <p>В планах на будущее - хочу научится рисованию и игре на гитаре. Возможно еще хотелось бы серьезно заняться своими навыками готовки. Еще кстати чутка уссыкаюсь по викторианской эпохе, в частности по архитектуре.</p>
-                                </div>
-                            </div>
-                            <div class="image-content">
-                                <img src="images/hobbies.jpg" alt="Хобби и увлечения" class="section-image">
-                            </div>
-                        </div>
-                    </section>
+                <section class="about-section">
 
-                    <section class="content-section">
-                        <div class="content-wrapper">
-                            <div class="text-content">
-                                <h2 class="section-title">Музыкальные предпочтения</h2>
-                                <div class="section-text">
-                                    <p>Самолично о своих музыкальных предпочтениях я могу сказать только "Эээ... Ну я типа меломан, хз", поэтому я благородно делегировал эту задачу ИИ. Вот че он выдал:</p>
-                                    <p><em>Судя по твоей фонотеке, ты явно тяготеешь к интенсивному и экспериментальному звучанию. Твои предпочтения лежат в области мощной электроники — от агрессивного фонка и хардстайла до мрачного индастриала и хардкора, часто с примесью меланхолии и остросоциальных текстов на русском. Это музыка для экстремальных переживаний и глубоких погружений в собственные мысли, где тяжёлые биты соседствуют с философскими размышлениями.</em></p>
-                                </div>
-                            </div>
-                            <div class="image-content">
-                                <img src="images/music.jpg" alt="Музыкальные предпочтения" class="section-image">
-                            </div>
-                        </div>
-                    </section>
+                    <div class="about-section-header">
+                        <span class="about-section-number">01</span>
 
-                    <section class="content-section">
-                        <div class="content-wrapper">
-                            <div class="text-content">
-                                <h2 class="section-title">Образование и работа</h2>
-                                <div class="section-text">
-                                    <p>Несмотря на мой возраст, я уже успел получить 2 высших образования. Дважды поступал на факультет пиздабола.</p>
-                                    <p>На самом деле я только 11 классов окончил, потом поступил в ПТУ (НЕ ОСУЖДАЙТЕ Я И САМ ВСЁ ПОНИМАЮ), мне там не понравилось и я свалил в другое учебное заведение на следующий день. Тоже ПТУ кстати. Но мне и там не понравилось и я благополучно числанулся через 3 дня. После этого я в таких забегаловках больше не появлялся, и за 2 года еще ни разу не пожалел.</p>
-                                    <p>С работой ситуация немного стабильнее, разве что я меняю её каждые полгода/год. Так что конкретного места работы нет, ровно как и предпочтений.</p>
-                                </div>
-                            </div>
-                            <div class="image-content">
-                                <img src="images/school.jpg" alt="Образование и работа" class="section-image">
-                            </div>
+                        <div>
+                            <h2>Чем я занимаюсь</h2>
                         </div>
-                    </section>
+                    </div>
 
-                    <section class="content-section">
-                        <div class="content-wrapper">
-                            <div class="text-content">
-                                <h2 class="section-title">Цели, амбиции и мечты</h2>
-                                <div class="section-text">
-                                    <p>В данный момент мечтаю переехать в Санкт-Петербург, предварительно накопив немалую сумму денег и выйти на пассивный доход.</p>
-                                    <p>В долгосрочной перспективе хотелось бы спокойной жизни, с небольшими вкроплениями суеты. Хотелось бы стать профессиональным художником, гитаристом и писателем. И еще немножко хочется покрасивее стать, но это я так, по-секрету.</p>
-                                </div>
-                            </div>
-                            <div class="image-content">
-                                <img src="images/dream.jpg" alt="Цели, амбиции и мечты" class="section-image">
-                            </div>
-                        </div>
-                    </section>
+                    <div class="about-projects">
 
-                    <section class="content-section hidden-section">
-                        <div class="content-wrapper">
-                            <div class="text-content">
-                                <h2 class="section-title">Мои социальные сети</h2>
-                                <div class="section-text">
-                                    <p>Telegram: <a target="_blank" rel="noopener noreferrer" href="https://t.me/phrenzye">@phrenzye</a><br>Instagram: <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/phre.nzye/">phre.nzye</a><br>TikTok: <a target="_blank" rel="noopener noreferrer" href="https://www.tiktok.com/@phrenzye">Phrenzye</a><br></p>
-                                </div>
+                        <button class="about-project" type="button" data-tab="musician">
+                            <div class="about-project-icon">
+                                <i data-lucide="audio-lines"></i>
                             </div>
-                            <div class="image-content">
-                                <img src="images/social.jpg" alt="Социальные сети" class="section-image">
+
+                            <div class="about-project-text">
+                                <h3>Музыка</h3>
+                                <p>
+                                    Электронная музыка, эксперименты со звуком
+                                    и релизы под именем Phrenzye.
+                                </p>
                             </div>
+
+                            <i data-lucide="arrow-up-right" class="about-project-arrow"></i>
+                        </button>
+
+
+                        <button class="about-project" type="button" data-tab="artist">
+                            <div class="about-project-icon">
+                                <i data-lucide="pencil-sparkles"></i>
+                            </div>
+
+                            <div class="about-project-text">
+                                <h3>Рисование</h3>
+                                <p>
+                                    Визуальные эксперименты и попытки научиться
+                                    превращать идеи в изображения.
+                                </p>
+                            </div>
+
+                            <i data-lucide="arrow-up-right" class="about-project-arrow"></i>
+                        </button>
+
+
+                        <button class="about-project" type="button" data-tab="library">
+                            <div class="about-project-icon">
+                                <i data-lucide="library-big"></i>
+                            </div>
+
+                            <div class="about-project-text">
+                                <h3>Писательство</h3>
+                                <p>
+                                    Вымышленные вселенные, наброски, персонажи
+                                    и кусочки историй.
+                                </p>
+                            </div>
+
+                            <i data-lucide="arrow-up-right" class="about-project-arrow"></i>
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+                <section class="about-section about-now">
+
+                    <div class="about-section-header">
+                        <span class="about-section-number">02</span>
+
+                        <div>
+                            <h2>Сейчас</h2>
                         </div>
-                    </section>
-                </div>
+                    </div>
+
+                    <div class="about-now-card">
+
+                        <div class="about-now-status">
+                            <span class="about-status-dot"></span>
+                            currently creating
+                        </div>
+
+                        <h3>Музыка постепенно перестаёт быть экспериментом</h3>
+
+                        <p>
+                            Сейчас основной фокус находится на музыке:
+                            пишу новые треки, учусь продакшену и постепенно
+                            пытаюсь превратить Phrenzye из набора экспериментов
+                            во что-то более цельное.
+                        </p>
+
+                    </div>
+
+                </section>
+
+
+                <section class="about-section about-footer-section">
+
+                    <div class="about-section-header">
+                        <span class="about-section-number">03</span>
+
+                        <div>
+                            <h2>Где меня найти</h2>
+                        </div>
+                    </div>
+
+                    <div class="about-socials">
+
+                        <a href="https://t.me/phrnzy"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            Telegram
+                        </a>
+
+                        <a href="https://www.instagram.com/oligophrenzye/"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            Instagram
+                        </a>
+
+                        <a href="https://www.tiktok.com/@phrenzye"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            TikTok
+                        </a>
+
+                        <a href="https://www.youtube.com/@Phrenzye"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            YouTube
+                        </a>
+
+                    </div>
+
+                </section>
+
             </div>
             
             <div class="content" id="games-content">
@@ -264,30 +343,130 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="content" id="library-content">
-                <div class="library-section">
-                    <div class="items-grid" id="writings-grid">
-                        <!-- Карточки будут загружены через JavaScript -->
+
+            <div class="content" id="musician-content">
+
+                <section class="profile-section">
+                    <div class="profile-header">
+                        <div class="profile-icon">
+                            <i data-lucide="audio-lines"></i>
+                        </div>
+
+                        <div>
+                            <h1 class="section-title">Музыка</h1>
+                            <p class="profile-subtitle">
+                                Phrenzye · электронная музыка
+                            </p>
+                        </div>
                     </div>
-                </div>
+
+                    <div class="profile-text">
+                        <p>
+                            Здесь будет моя музыкальная сторона.
+                            Продакшн, эксперименты, релизы и всё то,
+                            что каким-то образом превращается в звук.
+                        </p>
+
+                        <p>
+                            Работаю преимущественно с электронной музыкой,
+                            люблю тяжёлое, атмосферное и экспериментальное звучание.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="profile-section">
+                    <h2 class="section-title">Мои релизы</h2>
+
+                    <div class="releases-grid" id="releases-grid">
+                        <!-- Релизы будут загружены через JavaScript -->
+                    </div>
+                </section>
+
             </div>
 
-            <div class="content" id="books-content">
-                <div class="controls">
-                    <input type="text" id="search-input-series" placeholder="Поиск по названию...">
-                    <button id="sort-date-series" class="active">По дате</button>
-                    <button id="sort-name-series">По названию</button>
-                    <button id="sort-rating-series">По оценке</button>
-                </div>
-                <div class="items-grid" id="books-grid">
-                    <!-- Книги будут загружены через JavaScript -->
+
+            <div class="content" id="artist-content">
+
+                <section class="profile-section">
+                    <div class="profile-header">
+                        <div class="profile-icon">
+                            <i data-lucide="pencil-sparkles"></i>
+                        </div>
+
+                        <div>
+                            <h1 class="section-title">Рисование</h1>
+                            <p class="profile-subtitle">
+                                Рисование · визуал · эксперименты
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="profile-text">
+                        <p>
+                            Рисование пока находится в категории
+                            «когда-нибудь я обязательно этим займусь».
+                            Но в перспективе хочу развить этот навык
+                            и попробовать перенести часть своих идей
+                            из музыки и текстов в визуальную форму.
+                        </p>
+
+                        <p>
+                            Возможно однажды этот раздел будет содержать в себе не только рисунки.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="profile-section">
+                    <div class="content-header">
+                        <h2 class="section-title">Мои работы</h2>
+                    </div>
+
+                    <div id="artworks-grid" class="artworks-grid"></div>
+                </section>
+
+            </div>
+            
+            <div class="content" id="library-content">
+                <section class="profile-section">
+                    <div class="profile-header">
+                        <div class="profile-icon">
+                            <i data-lucide="library-big"></i>
+                        </div>
+
+                        <div>
+                            <h1 class="section-title">Писательство</h1>
+                            <p class="profile-subtitle">
+                                Вселенные · наброски
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="profile-text">
+                        <p>
+                            Здесь я складываю свои вымышленные вселенные, которые может быть однажды станут
+                            чем-то большим, чем набросок с кусочками лора.
+                        </p>
+
+                        <p>
+                            Для одной из вселенных кстати уже даже прописан сюжет 2-3 глав.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="profile-section">
+                    <div class="content-header">
+                        <h2 class="section-title">Мои наброски</h2>
+                    </div>
+
+                    <div class="items-grid" id="writings-grid">
+                </section>
+
                 </div>
             </div>
-        </main>
+</main>
         
         <footer>
-            <p>Phrenzye's Infostand &copy; 2025</p>
+            <p>Phrenzye.wav &copy; 2026</p>
         </footer>
     </div>
 
@@ -306,12 +485,34 @@
         </div>
     </div>
 
+    </div><!-- .page -->
+
+    <div id="artwork-lightbox" class="artwork-lightbox">
+        <button
+            type="button"
+            class="artwork-lightbox-close"
+            aria-label="Закрыть"
+        >
+            <i data-lucide="x"></i>
+        </button>
+
+        <img
+            id="artwork-lightbox-image"
+            class="artwork-lightbox-image"
+            src=""
+            alt=""
+        >
+
+        <div id="artwork-lightbox-title" class="artwork-lightbox-title"></div>
+    </div>
+
     <script src="data/games.js"></script>
     <script src="data/movies.js"></script>
     <script src="data/series.js"></script>
     <script src="data/anime.js"></script>
-    <script src="data/books.js"></script>
     <script src="data/writings.js"></script>
+    <script src="data/releases.js"></script>
+    <script src="data/artworks.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
