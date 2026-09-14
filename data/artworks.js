@@ -8,5 +8,10 @@ window.artworksData = [
         title: "PsiloDNA",
         rating: "8/10",
         image: "images/artworks/work2.png"
+    },
+    {
+        title: "Flower Flavored Spine",
+        rating: "9/10",
+        image: "images/artworks/work3.png"
     }
 ];
