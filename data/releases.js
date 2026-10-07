@@ -3,7 +3,7 @@ window.releasesData = [
         title: "HIRAETH",
         date: "25.08.2026",
         genre: "Hardstyle",
-        type: "EP",
+        type: "Single",
         cover: "images/releases/hiraeth.png",
         preview: "audio/releases/hiraeth-preview.mp3",
 
