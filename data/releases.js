@@ -1,4 +1,25 @@
 window.releasesData = [
+	{
+        title: "HIRAETH",
+        date: "25.08.2026",
+        genre: "Hardstyle",
+        type: "EP",
+        cover: "images/releases/hiraeth.png",
+        preview: "audio/releases/hiraeth-preview.mp3",
+
+        tracks: [
+            {
+                title: "HIRAETH",
+                duration: "4:06"
+            }
+        ],
+
+        links: {
+            spotify: "https://open.spotify.com/album/2Qj51lxdJuebPIN7FdPv5Q?si=RoilQnGJRXqEyhZdoQhCtg",
+            youtube: "https://music.youtube.com/playlist?list=OLAK5uy_m3zbZBWb1TZfZ1eQUc-INdU-hKfnOtJLo&si=MNfldI1K5fKfraCg",
+            yandex: "https://music.yandex.ru/album/43895956?utm_source=web&utm_medium=copy_link"
+        }
+    },
     {
         title: "MAYDAY!",
         date: "21.08.2026",
